@@ -1,0 +1,13 @@
+{
+  "name": "pickle-at-chirag",
+  "version": "1.0.0",
+  "description": "Sports booking system linked directly to Google Sheets",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.19.2",
+    "node-fetch": "^2.7.0"
+  },
+  "scripts": {
+    "start": "node server.js"
+  }
+}
