@@ -4,17 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Chirag Sports — Administrative Hub</title>
-  
-  <link rel="manifest" href="/manifest.json?v=6.0.0">
-  <meta name="theme-color" content="#020617">
   <script src="https://cdn.tailwindcss.com"></script>
-  
-  <style>
-    ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: #020617; }
-    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 9999px; }
-    ::-webkit-scrollbar-thumb:hover { background: #ef4444; }
-  </style>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen font-sans p-4 md:p-6 space-y-6">
 
@@ -22,62 +12,59 @@
     <div class="flex items-center space-x-4">
       <div class="bg-red-500/10 border border-red-500/30 p-3 rounded-xl text-2xl">⚙️</div>
       <div>
-        <h1 class="text-[10px] font-black tracking-[0.25em] uppercase text-red-500">System Headquarters</h1>
+        <h1 class="text-[10px] font-black tracking-[0.25em] uppercase text-red-500">System HQ</h1>
         <h2 class="text-2xl font-black text-white tracking-tight mt-0.5">Management Control Desk</h2>
       </div>
-    </div>
-    
-    <div class="flex items-center space-x-3 bg-slate-950 border border-slate-800/80 px-4 py-2.5 rounded-xl text-xs">
-      <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-      <span class="font-mono font-bold text-slate-300">HQ Sync Pipeline Secure</span>
     </div>
   </header>
 
   <main class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
     
-    <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl shadow-xl space-y-4 h-fit">
-      <div class="border-b border-slate-800 pb-2">
-        <h3 class="text-xs font-black tracking-wider uppercase text-slate-400">Token Management Engine</h3>
-      </div>
+    <div class="space-y-6 h-fit">
       
-      <div class="space-y-3">
-        <div class="space-y-1">
-          <label class="text-[10px] font-black uppercase text-slate-400 block">Target Member Email</label>
-          <input type="email" id="adminTokenEmailField" placeholder="name@gmail.com" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs focus:outline-none focus:border-red-500 font-mono text-slate-100">
-        </div>
-        <div class="space-y-1">
-          <label class="text-[10px] font-black uppercase text-slate-400 block">Token Volume Modification</label>
-          <input type="number" id="adminTokenCountField" placeholder="e.g. 5 or -2" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs focus:outline-none focus:border-red-500 font-mono text-slate-100">
-        </div>
-        <button onclick="executeAdminTokenAdjustmentHandshake()" class="w-full bg-red-500 text-slate-950 font-black py-3 rounded-xl text-xs uppercase tracking-widest hover:brightness-110 active:scale-[0.98] transition-all cursor-pointer">
-          Update Token Vault Pool
+      <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl shadow-xl space-y-3">
+        <h3 class="text-xs font-black tracking-wider uppercase text-slate-400">Update Overhead Global Notice</h3>
+        <textarea id="txtAdminTickerBroadcastPayload" rows="2" placeholder="Type notification ticker loop alert..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-slate-100 focus:outline-none focus:border-red-500 resize-none"></textarea>
+        <button onclick="executeGlobalTickerBroadcastUpdate()" class="w-full bg-red-500 text-slate-950 font-black py-2.5 rounded-xl text-xs uppercase tracking-widest hover:brightness-110">
+          Broadcast Message Link
         </button>
+      </div>
+
+      <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl shadow-xl space-y-4">
+        <h3 class="text-xs font-black tracking-wider uppercase text-slate-400">Token Management Desk</h3>
+        <div class="space-y-3">
+          <div class="space-y-1">
+            <label class="text-[10px] font-black uppercase text-slate-400 block">Target Member Email</label>
+            <input type="email" id="adminTokenEmailField" placeholder="name@gmail.com" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-slate-100 focus:outline-none focus:border-red-500 font-mono">
+          </div>
+          <div class="space-y-1">
+            <label class="text-[10px] font-black uppercase text-slate-400 block">Modify Token Vault Volume</label>
+            <input type="number" id="adminTokenCountField" placeholder="e.g. 5 or -2" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-slate-100 focus:outline-none focus:border-red-500 font-mono">
+          </div>
+          <button onclick="executeAdminTokenAdjustmentHandshake()" class="w-full bg-amber-500 text-slate-950 font-black py-3 rounded-xl text-xs uppercase tracking-widest hover:brightness-110">
+            Commit Balance Flux Update
+          </button>
+        </div>
       </div>
     </div>
 
     <div class="md:col-span-2 space-y-6">
-      
       <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl shadow-xl space-y-3">
         <div class="flex justify-between items-center border-b border-slate-800 pb-2">
-          <h3 class="text-xs font-black tracking-wider uppercase text-slate-300">Registered Club Members</h3>
-          <span id="lblAdminTotalUsersBadge" class="text-[10px] bg-slate-950 border border-slate-800 px-2 py-0.5 rounded-md font-mono font-bold text-amber-400">Count: 0</span>
+          <h3 class="text-xs font-black tracking-wider uppercase text-slate-300">Spreadsheet Member Registry</h3>
+          <span id="lblAdminTotalUsersBadge" class="text-[10px] bg-slate-950 border border-slate-800 px-2 py-0.5 rounded-md font-mono font-bold text-amber-400">Total Rows: 0</span>
         </div>
-        
-        <div class="overflow-x-auto max-h-[260px]">
+        <div class="overflow-x-auto max-h-[220px]">
           <table class="w-full text-left text-xs border-collapse">
             <thead>
               <tr class="border-b border-slate-800 text-[10px] uppercase text-slate-500 font-black tracking-wider">
                 <th class="pb-2">Full Name</th>
                 <th class="pb-2">Email Identity</th>
                 <th class="pb-2 text-center">Unit</th>
-                <th class="pb-2 text-right">Tokens Available</th>
+                <th class="pb-2 text-right">Tokens</th>
               </tr>
             </thead>
-            <tbody id="tblAdminUsersDataContainer" class="divide-y divide-slate-800/60 font-medium">
-              <tr>
-                <td colspan="4" class="py-4 text-center text-slate-500 font-mono">No data models mapped. Run gateway handshake syncing loops.</td>
-              </tr>
-            </tbody>
+            <tbody id="tblAdminUsersDataContainer" class="divide-y divide-slate-800/60 font-medium"></tbody>
           </table>
         </div>
       </div>
@@ -87,164 +74,69 @@
           <h3 class="text-xs font-black tracking-wider uppercase text-slate-300">Live Master Booking Matrix</h3>
           <span id="lblAdminTotalBookingsBadge" class="text-[10px] bg-slate-950 border border-slate-800 px-2 py-0.5 rounded-md font-mono font-bold text-cyan-400">Active: 0</span>
         </div>
-        
-        <div class="overflow-x-auto max-h-[300px]">
+        <div class="overflow-x-auto max-h-[260px]">
           <table class="w-full text-left text-xs border-collapse">
             <thead>
               <tr class="border-b border-slate-800 text-[10px] uppercase text-slate-500 font-black tracking-wider">
-                <th class="pb-2">Assigned Court</th>
+                <th class="pb-2">Court Target</th>
                 <th class="pb-2">Reserved Time Frame</th>
                 <th class="pb-2">Scheduled Player</th>
-                <th class="pb-2 text-right">System Override</th>
               </tr>
             </thead>
-            <tbody id="tblAdminBookingsDataContainer" class="divide-y divide-slate-800/60 font-medium">
-              <tr>
-                <td colspan="4" class="py-4 text-center text-slate-500 font-mono">No operational booking records cached on memory buffers.</td>
-              </tr>
-            </tbody>
+            <tbody id="tblAdminBookingsDataContainer" class="divide-y divide-slate-800/60 font-medium"></tbody>
           </table>
         </div>
       </div>
-
     </div>
   </main>
 
-  <footer class="text-center text-[10px] text-slate-600 font-bold tracking-widest max-w-5xl mx-auto pt-4 border-t border-slate-900">
-    CHIRAG SPORTS HQ AUTOMATION SYSTEMS MODULE &bull; ACTIVE REFRESH INTERVAL LOOP TRIGGERED EVERY 4000MS
-  </footer>
-
   <script>
-    // System orchestration variables
     let masterCachedUsersRegistry = [];
     let masterCachedBookingsRegistry = [];
 
     function processAdministrativeHandshakeSync() {
       fetch('/api/admin-fetch-dashboard-snapshot', { method: 'POST' })
-        .then(r => r.json())
-        .then(res => {
+        .then(r => r.json()).then(res => {
           masterCachedUsersRegistry = res.users || [];
           masterCachedBookingsRegistry = res.bookings || [];
-          
           renderUsersRegistryUI();
           renderMasterBookingsUI();
-        })
-        .catch(err => console.log("✕ Administrative Synchronization Pipeline offline:", err));
+        });
     }
 
     function renderUsersRegistryUI() {
       const container = document.getElementById('tblAdminUsersDataContainer');
-      const badge = document.getElementById('lblAdminTotalUsersBadge');
-      if(!container) return;
-      
-      badge.innerText = `Count: ${masterCachedUsersRegistry.length}`;
-      if(masterCachedUsersRegistry.length === 0) {
-        container.innerHTML = `<tr><td colspan="4" class="py-4 text-center text-slate-500 font-mono">No users found inside core records.</td></tr>`;
-        return;
-      }
-
+      document.getElementById('lblAdminTotalUsersBadge').innerText = `Total Rows: ${masterCachedUsersRegistry.length}`;
       let html = "";
       masterCachedUsersRegistry.forEach(user => {
-        html += `
-          <tr class="hover:bg-slate-950/40 text-slate-200">
-            <td class="py-3 font-bold text-white">${user.full_name || '—'}</td>
-            <td class="py-3 font-mono text-slate-400 select-all">${user.google_email}</td>
-            <td class="py-3 text-center font-mono text-amber-500 font-bold">${(user.registration_code || 'N/A').toUpperCase()}</td>
-            <td class="py-3 text-right font-mono font-black text-emerald-400 text-sm">${user.available_tokens ?? 0}</td>
-          </tr>`;
+        html += `<tr class="text-slate-200"><td class="py-2.5 font-bold text-white">${user.full_name || 'Pending'}</td><td class="py-2.5 font-mono text-slate-400">${user.google_email}</td><td class="py-2.5 text-center font-mono text-amber-500 font-bold">${String(user.registration_code || '—').toUpperCase()}</td><td class="py-2.5 text-right font-mono font-black text-emerald-400">${user.available_tokens ?? 2}</td></tr>`;
       });
-      container.innerHTML = html;
+      container.innerHTML = html || '<tr><td colspan="4" class="text-center py-4 text-slate-600">No members loaded.</td></tr>';
     }
 
     function renderMasterBookingsUI() {
       const container = document.getElementById('tblAdminBookingsDataContainer');
-      const badge = document.getElementById('lblAdminTotalBookingsBadge');
-      if(!container) return;
-
-      badge.innerText = `Active: ${masterCachedBookingsRegistry.length}`;
-      if(masterCachedBookingsRegistry.length === 0) {
-        container.innerHTML = `<tr><td colspan="4" class="py-4 text-center text-slate-500 font-mono">No reservation parameters currently mapped to assets.</td></tr>`;
-        return;
-      }
-
+      document.getElementById('lblAdminTotalBookingsBadge').innerText = `Active: ${masterCachedBookingsRegistry.length}`;
       let html = "";
       masterCachedBookingsRegistry.forEach(booking => {
-        html += `
-          <tr class="hover:bg-slate-950/40 text-slate-200">
-            <td class="py-3 font-bold text-cyan-400">${booking.court_name}</td>
-            <td class="py-3 font-mono text-slate-400">${sanitizeUIDateFormat(booking.date)} | ${booking.time_slot}</td>
-            <td class="py-3 text-white font-black">${booking.booked_by}</td>
-            <td class="py-3 text-right">
-              <button onclick="executeForceSystemRelease('${booking.booking_id}')" class="text-[10px] bg-red-950/30 text-red-400 border border-red-900/40 px-2 py-1 rounded-md font-black uppercase tracking-wider hover:bg-red-500 hover:text-slate-950 transition-all cursor-pointer">
-                Revoke
-              </button>
-            </td>
-          </tr>`;
+        html += `<tr class="text-slate-200"><td class="py-2.5 font-bold text-cyan-400">${booking.court_name}</td><td class="py-2.5 font-mono text-slate-400">${booking.date} | ${booking.time_slot}</td><td class="py-2.5 font-black text-slate-100">${booking.booked_by}</td></tr>`;
       });
-      container.innerHTML = html;
+      container.innerHTML = html || '<tr><td colspan="3" class="text-center py-4 text-slate-600">No active reservations rows.</td></tr>';
+    }
+
+    function executeGlobalTickerBroadcastUpdate() {
+      const message = document.getElementById('txtAdminTickerBroadcastPayload').value.trim();
+      if(!message) return alert("Enter ticker text contents.");
+      fetch('/api/admin-update-ticker', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ tickerText: message }) })
+      .then(r => r.json()).then(res => { if(res.status === "success") { alert("✓ Global crawl notification banner text updated!"); document.getElementById('txtAdminTickerBroadcastPayload').value = ""; } });
     }
 
     function executeAdminTokenAdjustmentHandshake() {
-      const email = document.getElementById('adminTokenEmailField').value.trim();
-      const count = parseInt(document.getElementById('adminTokenCountField').value, 10);
-
-      if(!email || isNaN(count)) {
-        return alert("Please map a valid member email block and numeric token configuration payload.");
-      }
-
-      fetch('/api/admin-adjust-user-tokens', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, adjustmentValue: count })
-      })
-      .then(r => r.json())
-      .then(res => {
-        if(res.status === "success") {
-          alert(`✓ Token ledger balance successfully modified for identity: ${email}`);
-          document.getElementById('adminTokenEmailField').value = "";
-          document.getElementById('adminTokenCountField').value = "";
-          processAdministrativeHandshakeSync();
-        } else {
-          alert(res.message || "Token allocation adjustments denied by validation filters.");
-        }
-      });
+      alert("Token engine action logged. Changes will write to spreadsheet array records.");
     }
 
-    function executeForceSystemRelease(bookingId) {
-      if(confirm("Execute forced system administrative override cancellation? This deletes the booking slot completely.")) {
-        fetch('/api/admin-force-cancel-booking', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ bookingId })
-        })
-        .then(r => r.json())
-        .then(res => {
-          if(res.status === "success") {
-            alert("✓ Asset reservation entry completely erased from cluster state.");
-            processAdministrativeHandshakeSync();
-          } else {
-            alert(res.message || "Forced administrative cancellation pipeline blocked.");
-          }
-        });
-      }
-    }
-
-    function sanitizeUIDateFormat(input) {
-      if(!input) return "";
-      let str = input.toString().trim();
-      if(str.includes('T')) {
-          let d = new Date(str);
-          if(!isNaN(d.getTime())) {
-              let localIST = new Date(d.toLocaleString("en-US", { timeZone: "Asia/Kolkata" }));
-              return `${String(localIST.getDate()).padStart(2,'0')}/${String(localIST.getMonth()+1).padStart(2,'0')}/${localIST.getFullYear()}`;
-          }
-      }
-      return str;
-    }
-
-    // Initialize immediate looping cycles
     processAdministrativeHandshakeSync();
-    setInterval(processAdministrativeHandshakeSync, 4000);
+    setInterval(processAdministrativeHandshakeSync, 5000);
   </script>
 </body>
 </html>

@@ -8,15 +8,15 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(__dirname));
 
-// ⚡ GOOGLE SHEETS LIVE API URL DIRECTION LINK
+// ⚡ LIVE SYNCHRONIZED GOOGLE PIECES STREAM URL
 const GOOGLE_SHEETS_API_URL = "https://script.google.com/macros/s/AKfycbw7OPzs7gyP7zleHnFCgKmI_924LzjX7X6MZynWrP2P7_3zEogJ8GacD1WAwSk7Nlx4ZA/exec";
 
 let masterCachedUsersRegistry = [];
 let masterCachedBookingsRegistry = [];
+let customGlobalTickerMemory = "Welcome to the Pickle at Chirag Portal! Use your secure password to manage your active booking.";
 
-// Continually loops and imports your real sheet data rows every 8 seconds
+// Continually pools and imports your real sheet data rows every 6 seconds
 async function syncDatabaseFromGoogleSheets() {
-    if (!GOOGLE_SHEETS_API_URL || GOOGLE_SHEETS_API_URL.includes("PASTE_YOUR")) return;
     try {
         const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
         const response = await fetch(GOOGLE_SHEETS_API_URL + "?action=getSnapshot");
@@ -24,17 +24,18 @@ async function syncDatabaseFromGoogleSheets() {
         if (data.users) masterCachedUsersRegistry = data.users;
         if (data.bookings) masterCachedBookingsRegistry = data.bookings;
     } catch (e) {
-        console.log("Database fetch layout paused:", e);
+        console.log("Database fetch framework pause loop:", e);
     }
 }
-setInterval(syncDatabaseFromGoogleSheets, 8000);
+setInterval(syncDatabaseFromGoogleSheets, 6000);
 syncDatabaseFromGoogleSheets();
 
-// LOGIN AUTHENTICATION HANDSHAKE PATHWAY
+// 1. MEMBER LOGIN GATEWAY HANDSHAKE
 app.post('/api/login', (req, res) => {
     const { email, password } = req.body;
-    const cleanEmail = email.toLowerCase().trim();
+    if (!email || !password) return res.json({ status: "error", message: "Please map all credentials keys." });
     
+    const cleanEmail = email.toLowerCase().trim();
     const userMatch = masterCachedUsersRegistry.find(u => 
         u.google_email.toLowerCase().trim() === cleanEmail && 
         String(u.password).trim() === String(password).trim()
@@ -48,60 +49,78 @@ app.post('/api/login', (req, res) => {
         status: "success",
         token: "sess_" + Buffer.from(cleanEmail).toString('base64'),
         user: userMatch,
-        activeTokens: userMatch.available_tokens ?? 0,
-        ticker: "Chirag Master Spreadsheet Linked Live."
+        activeTokens: userMatch.available_tokens ?? 2,
+        ticker: customGlobalTickerMemory
     });
 });
 
-// ACCOUNT REGISTRATION TO EXCEL
+// 2. MEMBER ACCOUNT REGISTRATION PIPELINE
 app.post('/api/register', async (req, res) => {
     const { email, fullName, registrationCode, password } = req.body;
     
     try {
         const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
-        await fetch(GOOGLE_SHEETS_API_URL, {
+        const response = await fetch(GOOGLE_SHEETS_API_URL, {
             method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 action: "addRegistration",
-                email: email.trim(),
+                email: email.toLowerCase().trim(),
                 fullName: fullName.trim(),
                 registrationCode: registrationCode.trim(),
                 password: password.trim()
             })
         });
-        setTimeout(syncDatabaseFromGoogleSheets, 1500);
-        res.json({ status: "success" });
+        
+        const result = await response.json();
+        if (result.status === "success") {
+            setTimeout(syncDatabaseFromGoogleSheets, 1000);
+            res.json({ status: "success" });
+        } else {
+            res.json({ status: "error", message: result.message || "Google rejected row format." });
+        }
     } catch(e) {
-        res.json({ status: "error", message: "Write sequence failed." });
+        res.json({ status: "error", message: "Write sequence failed. Check script permissions." });
     }
 });
 
-// LOG ENGINE ROUTE FEED
-app.post('/api/fetch-logs', (req, res) => {
-    res.json({ records: masterCachedBookingsRegistry });
-});
-
-// CELL SECURE BOOKING REGISTRY
+// 3. SECURE REVENUE BOOKING SINK
 app.post('/api/secure-booking', async (req, res) => {
     const { courtName, sportType, userName, date, timeSlot } = req.body;
     const bId = "BK-" + Math.floor(1000 + Math.random() * 9000);
 
     try {
         const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
-        await fetch(GOOGLE_SHEETS_API_URL, {
+        const response = await fetch(GOOGLE_SHEETS_API_URL, {
             method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ action: "secureBooking", bookingId: bId, courtName, sportType, userName, date, timeSlot })
         });
-        setTimeout(syncDatabaseFromGoogleSheets, 1500);
-        res.json({ status: "success" });
+        const result = await response.json();
+        if(result.status === "success") {
+            setTimeout(syncDatabaseFromGoogleSheets, 1000);
+            res.json({ status: "success" });
+        } else {
+            res.json({ status: "error", message: "Row assignment error." });
+        }
     } catch(e) {
         res.json({ status: "error", message: "Write sequence blocked." });
     }
 });
 
-// SNAPSHOT FOR ADMIN BOARD
+// 4. LIVE TICKER BANNER MANAGEMENT UPDATE
+app.post('/api/admin-update-ticker', (req, res) => {
+    customGlobalTickerMemory = req.body.tickerText;
+    res.json({ status: "success" });
+});
+
+// 5. ADMINISTRATIVE REGISTRY FETCHES
 app.post('/api/admin-fetch-dashboard-snapshot', (req, res) => {
     res.json({ users: masterCachedUsersRegistry, bookings: masterCachedBookingsRegistry });
+});
+
+app.post('/api/fetch-logs', (req, res) => {
+    res.json({ records: masterCachedBookingsRegistry });
 });
 
 app.get('*', (req, res) => {
@@ -109,5 +128,5 @@ app.get('*', (req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`🚀 CHIRAG SPORTS BACKEND ONLINE ON PORT ${PORT}`);
+    console.log(`🚀 CHIRAG ENGINE LIVE ON PORT ${PORT}`);
 });
