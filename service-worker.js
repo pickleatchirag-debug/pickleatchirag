@@ -1,4 +1,4 @@
-const CACHE_NAME = 'chirag-sports-v2'; // New clean tracking engine version block
+const CACHE_NAME = 'chirag-sports-v3'; // New clean tracking engine version block
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
