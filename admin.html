@@ -8,6 +8,21 @@
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen font-sans p-4 md:p-6 space-y-6">
 
+  <div id="adminAuthGateOverlay" class="fixed inset-0 bg-slate-950 z-[99999] flex items-center justify-center p-4">
+    <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-2xl max-w-sm w-full space-y-4">
+      <div class="text-center">
+        <span class="text-3xl">🔑</span>
+        <h2 class="text-base font-black uppercase text-red-500 mt-2 tracking-wider">HQ Security Gate</h2>
+        <p class="text-xs text-slate-400 mt-0.5">Enter authorized manager keys.</p>
+      </div>
+      <div class="space-y-3">
+        <input type="email" id="gateAdminEmail" placeholder="Admin Email Identity" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-slate-100 font-mono focus:outline-none focus:border-red-500">
+        <input type="password" id="gateAdminKey" placeholder="Administrative Password Key" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-slate-100 focus:outline-none focus:border-red-500">
+        <button onclick="validateAdminGateHandshake()" class="w-full bg-red-500 text-slate-950 font-black py-3 rounded-xl text-xs uppercase tracking-widest hover:brightness-110 cursor-pointer">Verify Access Clearances</button>
+      </div>
+    </div>
+  </div>
+
   <header class="bg-slate-900 border border-slate-800 p-6 rounded-2xl max-w-5xl mx-auto shadow-xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
     <div class="flex items-center space-x-4">
       <div class="bg-red-500/10 border border-red-500/30 p-3 rounded-xl text-2xl">⚙️</div>
@@ -21,30 +36,17 @@
   <main class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
     
     <div class="space-y-6 h-fit">
-      
       <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl shadow-xl space-y-3">
-        <h3 class="text-xs font-black tracking-wider uppercase text-slate-400">Update Overhead Global Notice</h3>
+        <h3 class="text-xs font-black tracking-wider uppercase text-slate-400">Update Global Notice Ticker</h3>
         <textarea id="txtAdminTickerBroadcastPayload" rows="2" placeholder="Type notification ticker loop alert..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-slate-100 focus:outline-none focus:border-red-500 resize-none"></textarea>
-        <button onclick="executeGlobalTickerBroadcastUpdate()" class="w-full bg-red-500 text-slate-950 font-black py-2.5 rounded-xl text-xs uppercase tracking-widest hover:brightness-110">
-          Broadcast Message Link
-        </button>
+        <button onclick="executeGlobalTickerBroadcastUpdate()" class="w-full bg-red-500 text-slate-950 font-black py-2.5 rounded-xl text-xs uppercase tracking-widest hover:brightness-110 cursor-pointer">Broadcast Notice Message</button>
       </div>
 
-      <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl shadow-xl space-y-4">
-        <h3 class="text-xs font-black tracking-wider uppercase text-slate-400">Token Management Desk</h3>
-        <div class="space-y-3">
-          <div class="space-y-1">
-            <label class="text-[10px] font-black uppercase text-slate-400 block">Target Member Email</label>
-            <input type="email" id="adminTokenEmailField" placeholder="name@gmail.com" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-slate-100 focus:outline-none focus:border-red-500 font-mono">
-          </div>
-          <div class="space-y-1">
-            <label class="text-[10px] font-black uppercase text-slate-400 block">Modify Token Vault Volume</label>
-            <input type="number" id="adminTokenCountField" placeholder="e.g. 5 or -2" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-slate-100 focus:outline-none focus:border-red-500 font-mono">
-          </div>
-          <button onclick="executeAdminTokenAdjustmentHandshake()" class="w-full bg-amber-500 text-slate-950 font-black py-3 rounded-xl text-xs uppercase tracking-widest hover:brightness-110">
-            Commit Balance Flux Update
-          </button>
-        </div>
+      <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl shadow-xl space-y-3">
+        <h3 class="text-xs font-black tracking-wider uppercase text-slate-400">Appoint Secondary Admins</h3>
+        <p class="text-[10px] text-slate-400">Whitelist an email identity below to grant them full access credentials for this HQ Admin control hub.</p>
+        <input type="email" id="txtNewAdminEmailInput" placeholder="co-manager@gmail.com" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs font-mono text-slate-100 focus:outline-none focus:border-cyan-500">
+        <button onclick="registerAdditionalAdminKey()" class="w-full bg-cyan-500 text-slate-950 font-black py-2.5 rounded-xl text-xs uppercase tracking-widest hover:brightness-110 cursor-pointer">Appoint System Admin</button>
       </div>
     </div>
 
@@ -61,7 +63,6 @@
                 <th class="pb-2">Full Name</th>
                 <th class="pb-2">Email Identity</th>
                 <th class="pb-2 text-center">Unit</th>
-                <th class="pb-2 text-right">Tokens</th>
               </tr>
             </thead>
             <tbody id="tblAdminUsersDataContainer" class="divide-y divide-slate-800/60 font-medium"></tbody>
@@ -74,13 +75,14 @@
           <h3 class="text-xs font-black tracking-wider uppercase text-slate-300">Live Master Booking Matrix</h3>
           <span id="lblAdminTotalBookingsBadge" class="text-[10px] bg-slate-950 border border-slate-800 px-2 py-0.5 rounded-md font-mono font-bold text-cyan-400">Active: 0</span>
         </div>
-        <div class="overflow-x-auto max-h-[260px]">
+        <div class="overflow-x-auto max-h-[280px]">
           <table class="w-full text-left text-xs border-collapse">
             <thead>
               <tr class="border-b border-slate-800 text-[10px] uppercase text-slate-500 font-black tracking-wider">
                 <th class="pb-2">Court Target</th>
-                <th class="pb-2">Reserved Time Frame</th>
-                <th class="pb-2">Scheduled Player</th>
+                <th class="pb-2">Details / Date Info</th>
+                <th class="pb-2">Player</th>
+                <th class="pb-2 text-right">Action</th>
               </tr>
             </thead>
             <tbody id="tblAdminBookingsDataContainer" class="divide-y divide-slate-800/60 font-medium"></tbody>
@@ -93,6 +95,32 @@
   <script>
     let masterCachedUsersRegistry = [];
     let masterCachedBookingsRegistry = [];
+    
+    // ⚡ HARDCODED MASTER ADMIN LIST ARRAY
+    let authorizedAdminWhitelistPool = ["rahul.babbar@gmail.com", "rahulbabbar@msn.com"];
+
+    function validateAdminGateHandshake() {
+        const email = document.getElementById('gateAdminEmail').value.toLowerCase().trim();
+        const key = document.getElementById('gateAdminKey').value.trim();
+
+        // Verifies against active whitelisted administrators strings
+        if (authorizedAdminWhitelistPool.includes(email) && key === "admin123") {
+            document.getElementById('adminAuthGateOverlay').remove();
+            processAdministrativeHandshakeSync();
+            setInterval(processAdministrativeHandshakeSync, 4000);
+        } else {
+            alert("Security Clearance Denied: Invalid Administrative credentials.");
+        }
+    }
+
+    function registerAdditionalAdminKey() {
+        const inputEmail = document.getElementById('txtNewAdminEmailInput').value.toLowerCase().trim();
+        if(!inputEmail || !inputEmail.includes('@')) return alert("Provide a valid target administrator email address.");
+        
+        authorizedAdminWhitelistPool.push(inputEmail);
+        alert(`✓ Authorization Expanded! Added ${inputEmail} to the System Administrator Whitelist Pool.`);
+        document.getElementById('txtNewAdminEmailInput').value = "";
+    }
 
     function processAdministrativeHandshakeSync() {
       fetch('/api/admin-fetch-dashboard-snapshot', { method: 'POST' })
@@ -109,34 +137,51 @@
       document.getElementById('lblAdminTotalUsersBadge').innerText = `Total Rows: ${masterCachedUsersRegistry.length}`;
       let html = "";
       masterCachedUsersRegistry.forEach(user => {
-        html += `<tr class="text-slate-200"><td class="py-2.5 font-bold text-white">${user.full_name || 'Pending'}</td><td class="py-2.5 font-mono text-slate-400">${user.google_email}</td><td class="py-2.5 text-center font-mono text-amber-500 font-bold">${String(user.registration_code || '—').toUpperCase()}</td><td class="py-2.5 text-right font-mono font-black text-emerald-400">${user.available_tokens ?? 2}</td></tr>`;
+        html += `<tr class="text-slate-200"><td class="py-2.5 font-bold text-white">${user.full_name || 'Pending'}</td><td class="py-2.5 font-mono text-slate-400">${user.google_email}</td><td class="py-2.5 text-center font-mono text-amber-500 font-bold">${String(user.registration_code || '—').toUpperCase()}</td></tr>`;
       });
-      container.innerHTML = html || '<tr><td colspan="4" class="text-center py-4 text-slate-600">No members loaded.</td></tr>';
+      container.innerHTML = html || '<tr><td colspan="3" class="text-center py-4 text-slate-600">No members loaded.</td></tr>';
     }
 
+    // 🔥 FIX: RENDER BOOKING LOG WITH ACTIVE REVOKE OVERRIDE PLUMBING KEYS
     function renderMasterBookingsUI() {
       const container = document.getElementById('tblAdminBookingsDataContainer');
       document.getElementById('lblAdminTotalBookingsBadge').innerText = `Active: ${masterCachedBookingsRegistry.length}`;
       let html = "";
       masterCachedBookingsRegistry.forEach(booking => {
-        html += `<tr class="text-slate-200"><td class="py-2.5 font-bold text-cyan-400">${booking.court_name}</td><td class="py-2.5 font-mono text-slate-400">${booking.date} | ${booking.time_slot}</td><td class="py-2.5 font-black text-slate-100">${booking.booked_by}</td></tr>`;
+        html += `
+          <tr class="text-slate-200">
+            <td class="py-2.5 font-bold text-cyan-400">${booking.court_name}</td>
+            <td class="py-2.5 font-mono text-slate-400">${booking.date} <br/> ${booking.time_slot}</td>
+            <td class="py-2.5 font-black text-slate-100">${booking.booked_by}</td>
+            <td class="py-2.5 text-right">
+              <button onclick="executeForceSystemRelease('${booking.booking_id}')" class="text-[9px] bg-red-950/40 text-red-400 border border-red-900/40 px-2 py-1 rounded font-black uppercase hover:bg-red-500 hover:text-slate-950 transition-all cursor-pointer">Purge</button>
+            </td>
+          </tr>`;
       });
-      container.innerHTML = html || '<tr><td colspan="3" class="text-center py-4 text-slate-600">No active reservations rows.</td></tr>';
+      container.innerHTML = html || '<tr><td colspan="4" class="text-center py-4 text-slate-600">No active reservation rows.</td></tr>';
+    }
+
+    function executeForceSystemRelease(bookingId) {
+        if (!bookingId) return alert("Error: Missing internal Booking identifier code validation context.");
+        if(confirm(`Execute forced administrative purge for entry code ID: ${bookingId}?`)) {
+            fetch('/api/admin-force-cancel-booking', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ bookingId })
+            })
+            .then(r => r.json()).then(res => {
+                if(res.status === "success") { alert("✓ Match entry completely wiped from Google Sheets ledger."); processAdministrativeHandshakeSync(); }
+                else { alert(res.message); }
+            });
+        }
     }
 
     function executeGlobalTickerBroadcastUpdate() {
       const message = document.getElementById('txtAdminTickerBroadcastPayload').value.trim();
       if(!message) return alert("Enter ticker text contents.");
       fetch('/api/admin-update-ticker', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ tickerText: message }) })
-      .then(r => r.json()).then(res => { if(res.status === "success") { alert("✓ Global crawl notification banner text updated!"); document.getElementById('txtAdminTickerBroadcastPayload').value = ""; } });
+      .then(r => r.json()).then(res => { if(res.status === "success") { alert("✓ Global crawl banner updated!"); document.getElementById('txtAdminTickerBroadcastPayload').value = ""; } });
     }
-
-    function executeAdminTokenAdjustmentHandshake() {
-      alert("Token engine action logged. Changes will write to spreadsheet array records.");
-    }
-
-    processAdministrativeHandshakeSync();
-    setInterval(processAdministrativeHandshakeSync, 5000);
   </script>
 </body>
 </html>

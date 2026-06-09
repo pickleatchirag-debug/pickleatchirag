@@ -4,58 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Chirag Sports Portal — Member Desk</title>
-  
-  <link rel="manifest" href="/manifest.json?v=7.0.0">
+  <link rel="manifest" href="/manifest.json?v=7.1.0">
   <meta name="theme-color" content="#020617">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <link class="app-main-icon-src" rel="apple-touch-icon" href="/icon-192.png?v=7.0.0">
-
   <script src="https://cdn.tailwindcss.com"></script>
-  
   <style>
     ::-webkit-scrollbar { width: 6px; height: 6px; }
     ::-webkit-scrollbar-track { background: #020617; }
     ::-webkit-scrollbar-thumb { background: #334155; border-radius: 9999px; }
     ::-webkit-scrollbar-thumb:hover { background: #ef4444; }
-
-    #appFirstBootSplashScreen {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: radial-gradient(circle at center, #083344 0%, #020617 80%);
-      z-index: 99999;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      transition: opacity 0.5s ease-out;
-    }
   </style>
-
-  <script>
-    if ("serviceWorker" in navigator) {
-      window.addEventListener("load", () => {
-        navigator.serviceWorker.register("/service-worker.js?v=7.0.0").then(reg => reg.update());
-      });
-    }
-  </script>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen font-sans select-none flex flex-col justify-between pb-6">
-
-  <div id="appFirstBootSplashScreen">
-    <div class="relative flex flex-col items-center">
-      <img src="/icon-512.png?v=7.0.0" alt="Logo" class="w-32 h-32 rounded-[28px] shadow-2xl border border-cyan-500/20">
-      <div class="mt-5 text-center">
-        <h1 class="text-[10px] font-black tracking-[0.3em] uppercase text-cyan-400">Pickle At</h1>
-        <h2 class="text-3xl font-black tracking-tight text-white uppercase mt-0.5 filter drop-shadow-md">Chirag</h2>
-      </div>
-    </div>
-  </div>
 
   <div class="bg-slate-900 border-b border-slate-800 text-xs py-2 px-4 shadow-md">
     <div class="max-w-xl mx-auto flex items-center space-x-2 overflow-hidden">
       <span class="bg-red-500/10 text-red-400 border border-red-500/20 px-2 py-0.5 rounded font-black uppercase text-[9px] shrink-0 animate-pulse">Notice</span>
-      <marquee id="systemGlobalTicker" class="text-slate-300 font-medium"></marquee>
+      <marquee id="systemGlobalTicker" class="text-slate-300 font-medium">Welcome to the Chirag Sports Portal! Select an available slot to book your match.</marquee>
     </div>
   </div>
 
@@ -89,7 +53,6 @@
     <div id="viewRegisterPanel" class="hidden bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-2xl max-w-md w-full mx-auto">
       <div class="text-center space-y-1 mb-4">
         <h2 class="text-xs font-black tracking-widest uppercase text-amber-500">Create Member Password</h2>
-        <p class="text-xs text-slate-400">Initialize profile spreadsheet credentials rows.</p>
       </div>
       <div class="space-y-4">
         <div class="space-y-1">
@@ -102,18 +65,18 @@
         </div>
         <div class="space-y-1">
           <label class="text-[10px] font-black uppercase text-slate-400 block">Society Joining/Unit Code</label>
-          <input type="text" id="regCodeField" placeholder="e.g. 13103 or C2" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm focus:outline-none focus:border-amber-500 text-slate-100 font-mono">
+          <input type="text" id="regCodeField" placeholder="e.g. 13103" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm focus:outline-none focus:border-amber-500 text-slate-100 font-mono">
         </div>
         <div class="space-y-1">
           <label class="text-[10px] font-black uppercase text-slate-400 block">Set Account Password</label>
           <input type="password" id="regPasswordField" placeholder="••••••" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm focus:outline-none focus:border-amber-500 text-slate-100 tracking-widest">
         </div>
-        <button onclick="executeMemberAccountRegistration()" class="w-full bg-amber-500 text-slate-950 font-black py-3.5 rounded-xl text-xs uppercase tracking-widest hover:brightness-110 active:scale-[0.99] transition-all cursor-pointer">
+        <button onclick="executeMemberAccountRegistration()" class="w-full bg-amber-500 text-slate-950 font-black py-3.5 rounded-xl text-xs uppercase tracking-widest hover:brightness-110 transition-all cursor-pointer">
           Complete Registration
         </button>
       </div>
       <div class="text-center pt-3 mt-3 border-t border-slate-800/60 text-xs">
-        <p class="text-slate-400">Have account? <button onclick="toggleInterfaceView('login')" class="text-red-400 font-bold hover:underline cursor-pointer">Log in here</button></p>
+        <p class="text-slate-400">Have account? <button onclick="toggleInterfaceView('login')" class="text-red-400 font-bold hover:underline cursor-pointer">Log in</button></p>
       </div>
     </div>
 
@@ -127,13 +90,13 @@
             </div>
          </div>
          <div class="text-right">
-            <span class="text-[9px] uppercase font-black text-slate-400 tracking-wider block">Available Tokens</span>
-            <span id="lblWorkspaceAvailableTokens" class="text-lg font-black text-amber-400 font-mono">0</span>
+            <span class="text-[9px] uppercase font-black text-slate-400 tracking-wider block">Tokens Available</span>
+            <span id="lblWorkspaceAvailableTokens" class="text-lg font-black text-amber-400 font-mono">2</span>
          </div>
       </div>
 
       <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl shadow-lg space-y-3">
-         <div class="flex justify-between items-center overflow-x-auto gap-2 py-0.5" id="userCalendarStrip"></div>
+         <div id="userCalendarStrip" class="flex justify-between items-center gap-2 py-0.5"></div>
          <div class="grid grid-cols-3 gap-2 bg-slate-950 p-1 rounded-xl border border-slate-900 text-xs font-bold text-center">
            <button id="userBtnC1" onclick="switchUserCourtAsset('Pickleball Court 1')" class="bg-slate-900 text-red-400 p-2 rounded-lg border border-slate-800 font-bold">PB Court 1</button>
            <button id="userBtnC2" onclick="switchUserCourtAsset('Pickleball Court 2')" class="text-slate-500 p-2 rounded-lg font-bold">PB Court 2</button>
@@ -148,7 +111,7 @@
          </div>
          <div id="userTimeSlotMatrixGrid" class="grid grid-cols-2 gap-2.5 max-h-[260px] overflow-y-auto pr-1"></div>
          <div class="pt-2">
-            <button onclick="commitSecureMemberBooking()" class="w-full bg-gradient-to-r from-red-500 to-amber-500 text-slate-950 font-black py-4 rounded-xl text-xs uppercase tracking-widest shadow-xl hover:brightness-110 active:scale-[0.99] transition-all cursor-pointer">
+            <button onclick="commitSecureMemberBooking()" class="w-full bg-gradient-to-r from-red-500 to-amber-500 text-slate-950 font-black py-4 rounded-xl text-xs uppercase tracking-widest shadow-xl hover:brightness-110 transition-all cursor-pointer">
                Lock Booking Reservation Frame
             </button>
          </div>
@@ -158,8 +121,8 @@
         <div class="flex justify-between items-center border-b border-slate-800 pb-2">
           <h2 class="text-xs font-black tracking-wider uppercase text-slate-300">Your Booking Ledger</h2>
           <div class="flex space-x-3 text-[10px] font-black uppercase tracking-wider">
-            <button id="tabUserLogUpcoming" onclick="toggleUserLogTab('upcoming')" class="text-emerald-400 underline font-black cursor-pointer">Upcoming Matches</button>
-            <button id="tabUserLogPast" onclick="toggleUserLogTab('past')" class="text-slate-500 cursor-pointer">History Log</button>
+            <button id="tabUserLogUpcoming" onclick="toggleUserLogTab('upcoming')" class="text-emerald-400 underline font-black">Upcoming Matches</button>
+            <button id="tabUserLogPast" onclick="toggleUserLogTab('past')" class="text-slate-500">History Log</button>
           </div>
         </div>
         <div id="userPersonalLedgerContainer" class="max-h-[240px] overflow-y-auto space-y-2.5 pr-1"></div>
@@ -174,7 +137,7 @@
       </div>
 
       <div class="text-center">
-         <button onclick="executeLogoutSequence()" class="text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-red-400 transition-all border border-slate-800/80 px-4 py-2 rounded-xl bg-slate-900/40">✕ Terminate Session Authorization</button>
+         <button onclick="executeLogoutSequence()" class="text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-red-400 border border-slate-800/80 px-4 py-2 rounded-xl bg-slate-900/40 cursor-pointer">✕ Terminate Session</button>
       </div>
     </div>
   </main>
@@ -195,30 +158,22 @@
     let selectedTentativeSlotMemory = "";
     let activeUserLogTab = "upcoming";
 
-    // ⚡ TOP-LEVEL ENGINE REFRESH INSTANT AUTH OVERRIDE
     function evaluateStorageSessionSync() {
       const savedToken = localStorage.getItem('chirag_session_token');
       const savedProfile = localStorage.getItem('chirag_member_profile');
-
       if (savedToken && savedProfile) {
         try {
           secureUserSessionToken = savedToken;
           sessionMemberProfile = JSON.parse(savedProfile);
-          
           window.addEventListener('DOMContentLoaded', () => {
-            const nameField = document.getElementById('lblWorkspaceMemberName');
-            const emailField = document.getElementById('lblWorkspaceMemberEmail');
-            if (nameField) nameField.innerText = sessionMemberProfile.full_name;
-            if (emailField) emailField.innerText = sessionMemberProfile.google_email;
-            
+            document.getElementById('lblWorkspaceMemberName').innerText = sessionMemberProfile.full_name;
+            document.getElementById('lblWorkspaceMemberEmail').innerText = sessionMemberProfile.google_email;
             toggleInterfaceView('workspace');
             initUserCalendarStrip();
             startPollingLiveWorkspaceLogs();
           });
           return true;
-        } catch (e) {
-          localStorage.clear();
-        }
+        } catch (e) { localStorage.clear(); }
       }
       return false;
     }
@@ -226,10 +181,6 @@
     const isUserAuthenticated = evaluateStorageSessionSync();
 
     window.addEventListener('DOMContentLoaded', () => {
-        setTimeout(() => {
-            const splash = document.getElementById('appFirstBootSplashScreen');
-            if (splash) { splash.style.opacity = '0'; setTimeout(() => splash.remove(), 400); }
-        }, 800);
         if (!isUserAuthenticated) toggleInterfaceView('login');
     });
 
@@ -239,20 +190,13 @@
             'register': document.getElementById('viewRegisterPanel'),
             'workspace': document.getElementById('viewWorkspacePanel')
         };
-        Object.values(panels).forEach(p => { if(p) { p.classList.add('hidden'); p.style.display = 'none'; } });
-        const currentTarget = panels[targetView];
-        if (currentTarget) {
-            currentTarget.classList.remove('hidden');
-            currentTarget.style.display = 'block';
-        }
+        Object.values(panels).forEach(p => { if(p) p.classList.add('hidden'); });
+        if (panels[targetView]) panels[targetView].classList.remove('hidden');
     }
 
     function executeMemberLoginHandshake() {
         const email = document.getElementById('loginEmailField').value.trim();
         const password = document.getElementById('loginPasswordField').value.trim();
-
-        if(!email || !password) return alert("Specify email and password keys.");
-
         fetch('/api/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -260,18 +204,13 @@
         })
         .then(r => r.json()).then(res => {
             if(res.status === "error") return alert(res.message);
-            
             secureUserSessionToken = res.token;
             sessionMemberProfile = res.user;
-
             localStorage.setItem('chirag_session_token', secureUserSessionToken);
             localStorage.setItem('chirag_member_profile', JSON.stringify(sessionMemberProfile));
-
             document.getElementById('lblWorkspaceMemberName').innerText = sessionMemberProfile.full_name;
             document.getElementById('lblWorkspaceMemberEmail').innerText = sessionMemberProfile.google_email;
             document.getElementById('lblWorkspaceAvailableTokens').innerText = res.activeTokens;
-            document.getElementById('systemGlobalTicker').innerText = res.ticker;
-
             toggleInterfaceView('workspace');
             initUserCalendarStrip();
             startPollingLiveWorkspaceLogs();
@@ -283,25 +222,18 @@
         const fullName = document.getElementById('regNameField').value.trim();
         const registrationCode = document.getElementById('regCodeField').value.trim();
         const password = document.getElementById('regPasswordField').value.trim();
-
-        if (!email || !fullName || !registrationCode || !password) return alert("Fill out all parameters forms cell blocks cleanly.");
-
         fetch('/api/register', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, fullName, registrationCode, password })
         })
         .then(r => r.json()).then(res => {
-            if (res.status === "success") {
-                alert("✓ Registered successfully! Please sign inside using your credentials keys.");
-                toggleInterfaceView('login'); 
-            } else {
-                alert(res.message);
-            }
+            if (res.status === "success") { alert("✓ Registered! Please log in."); toggleInterfaceView('login'); } 
+            else { alert(res.message); }
         });
     }
 
-    function startPollingLiveWorkspaceLogs() { syncUserLogsAndMatrix(); setInterval(syncUserLogsAndMatrix, 5000); }
+    function startPollingLiveWorkspaceLogs() { syncUserLogsAndMatrix(); setInterval(syncUserLogsAndMatrix, 4000); }
     function syncUserLogsAndMatrix() {
         if(!sessionMemberProfile) return;
         fetch('/api/fetch-logs', { method:'POST' }).then(r=>r.json()).then(res => {
@@ -313,31 +245,7 @@
     }
 
     function getNowLocalIST() { return new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" })); }
-    function sanitizeUIDate(input) {
-        if(!input) return "";
-        let str = input.toString().trim();
-        if(str.includes('T')) {
-            let d = new Date(str);
-            if(!isNaN(d.getTime())) {
-                let localIST = new Date(d.toLocaleString("en-US", { timeZone: "Asia/Kolkata" }));
-                return `${String(localIST.getDate()).padStart(2,'0')}/${String(localIST.getMonth()+1).padStart(2,'0')}/${localIST.getFullYear()}`;
-            }
-        }
-        return str;
-    }
-    function parseUIDateToAbsoluteObject(dateStr, timeSlotStr) {
-        try {
-            const [d, m, y] = dateStr.split('/');
-            const [startHourStr] = timeSlotStr.split(' - ');
-            const [hour, minutes] = startHourStr.split(':');
-            return new Date(parseInt(y, 10), parseInt(m, 10) - 1, parseInt(d, 10), parseInt(hour, 10), parseInt(minutes || 0, 10), 0);
-        } catch(e) { return new Date(); }
-    }
-    function extractNormalizedAssetToken(name) {
-        let str = name.toString().toLowerCase();
-        return (str.includes("badminton") || str.includes("bd")) ? "bd1" : (str.includes("2") ? "pb2" : "pb1");
-    }
-
+    
     function initUserCalendarStrip() {
         const box = document.getElementById('userCalendarStrip'); if(!box) return;
         const days = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]; const nowIST = getNowLocalIST();
@@ -347,14 +255,11 @@
            dates.push(`${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()}`);
            if(i === 0 && !selectedUserDateStr) selectedUserDateStr = dates[0];
            let isSel = selectedUserDateStr === dates[i];
-           box.innerHTML += `
-             <div onclick="switchUserDateAsset('${dates[i]}')" class="border text-center flex-1 p-2 rounded-xl cursor-pointer transition-all ${isSel?'border-red-500 bg-red-950/20 text-red-400 font-bold':'border-slate-800 bg-slate-900 text-slate-400'}">
-                <p class="text-[9px] uppercase font-black">${days[d.getDay()]}</p>
-                <p class="text-sm font-black text-slate-200 mt-0.5">${String(d.getDate()).padStart(2,'0')}</p>
-             </div>`;
+           box.innerHTML += `<div onclick="switchUserDateAsset('${dates[i]}')" class="border text-center flex-1 p-2 rounded-xl cursor-pointer ${isSel?'border-red-500 bg-red-950/20 text-red-400 font-bold':'border-slate-800 bg-slate-900 text-slate-400'}"><p class="text-[9px] uppercase font-black">${days[d.getDay()]}</p><p class="text-sm font-black text-slate-200 mt-0.5">${String(d.getDate()).padStart(2,'0')}</p></div>`;
         }
     }
     function switchUserDateAsset(dateStr) { selectedUserDateStr = dateStr; selectedTentativeSlotMemory = ""; initUserCalendarStrip(); syncUserLogsAndMatrix(); }
+    
     function switchUserCourtAsset(courtName) {
         selectedUserAsset = courtName; selectedTentativeSlotMemory = "";
         document.getElementById('lblUserAssetHeadline').innerText = courtName;
@@ -366,25 +271,18 @@
 
     function renderUserMatrixGridUI() {
         const grid = document.getElementById('userTimeSlotMatrixGrid'); if(!grid) return;
-        const nowIST = getNowLocalIST();
-        const targetToken = extractNormalizedAssetToken(selectedUserAsset);
-        const activeFilteredLogs = userActiveBookingsLogs.filter(l => extractNormalizedAssetToken(l.court_name) === targetToken && sanitizeUIDate(l.date) === selectedUserDateStr);
-
         let newHTML = "";
         TIME_SLOTS.forEach(slot => {
-            const rowMatch = activeFilteredLogs.find(l => l.time_slot.trim() === slot.trim());
-            const isPast = nowIST >= parseUIDateToAbsoluteObject(selectedUserDateStr, slot);
+            const rowMatch = userActiveBookingsLogs.find(l => l.court_name === selectedUserAsset && l.date === selectedUserDateStr && l.time_slot.trim() === slot.trim());
             let cardStyle = "bg-slate-950 border-slate-900 text-slate-300 hover:border-slate-800 cursor-pointer";
             let stateLabel = "Available Slot"; let action = `onclick="selectTentativeUserSlot('${slot}')"`;
 
-            if(isPast) {
-                cardStyle = "bg-slate-900/10 border-slate-950 text-slate-700 line-through cursor-not-allowed"; stateLabel = "Expired Slot"; action = "";
-            } else if(rowMatch) {
+            if(rowMatch) {
                 let isMine = rowMatch.booked_by === sessionMemberProfile.full_name;
                 cardStyle = isMine ? "bg-red-950/20 border-red-500 text-red-400 font-bold" : "bg-slate-900 border-slate-800 text-slate-500 cursor-not-allowed";
-                stateLabel = isMine ? "Your Locked Session" : "Locked by Club Partner"; action = "";
+                stateLabel = isMine ? "Your Locked Session" : "Locked"; action = "";
             } else if(selectedTentativeSlotMemory === slot) {
-                cardStyle = "border-amber-400 bg-amber-950/10 text-amber-400 font-bold shadow-md"; stateLabel = "Selected Target Block";
+                cardStyle = "border-amber-400 bg-amber-950/10 text-amber-400 font-bold"; stateLabel = "Selected Target";
             }
             newHTML += `<div ${action} class="border p-3 rounded-xl text-center select-none transition-all ${cardStyle}"><span class="text-xs font-mono font-bold block">${slot}</span><span class="text-[9px] uppercase font-black mt-0.5 tracking-wide block">${stateLabel}</span></div>`;
         });
@@ -393,7 +291,7 @@
     function selectTentativeUserSlot(slotStr) { selectedTentativeSlotMemory = slotStr; renderUserMatrixGridUI(); }
 
     function commitSecureMemberBooking() {
-        if(!selectedTentativeSlotMemory) return alert("Tap an open schedule cell card to construct a booking target.");
+        if(!selectedTentativeSlotMemory) return alert("Select an available card cell slot.");
         fetch('/api/secure-booking', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -406,32 +304,47 @@
             })
         })
         .then(r => r.json()).then(res => {
-            if(res.status === "success") {
-                alert("✓ Booking secured successfully into Spreadsheet!"); selectedTentativeSlotMemory = ""; syncUserLogsAndMatrix();
-            } else { alert(res.message); }
+            if(res.status === "success") { alert("✓ Booking saved to sheet!"); selectedTentativeSlotMemory = ""; syncUserLogsAndMatrix(); }
         });
     }
 
+    // 🔥 FIX: USER-LEDGER WITH REVERSIBLE PIPELINE CONNECTED
     function renderUserPersonalLedgerUI() {
         const container = document.getElementById('userPersonalLedgerContainer'); if(!container) return;
-        container.innerHTML = ""; const nowIST = getNowLocalIST();
-        let myParsedLogs = userActiveBookingsLogs.filter(b => b.booked_by === sessionMemberProfile.full_name)
-            .map(b => { return { ...b, parsedTime: parseUIDateToAbsoluteObject(sanitizeUIDate(b.date), b.time_slot) }; });
-        let targetedRows = myParsedLogs.filter(b => activeUserLogTab === "upcoming" ? b.parsedTime > nowIST : b.parsedTime <= nowIST);
-        if (targetedRows.length === 0) { container.innerHTML = `<p class="text-xs text-slate-500 text-center py-4">No matching records.</p>`; return; }
-        targetedRows.forEach(b => {
-            container.innerHTML += `<div class="flex justify-between items-center bg-slate-950 p-3 rounded-xl border border-slate-900"><div><h4 class="font-bold text-slate-200 text-xs">${b.court_name}</h4><p class="text-[10px] text-slate-400 font-mono mt-0.5">${sanitizeUIDate(b.date)} | ${b.time_slot}</p></div><span class="text-[9px] bg-slate-950 text-slate-400 border border-slate-900 px-2.5 py-1 rounded font-black uppercase">Active Match</span></div>`;
+        container.innerHTML = "";
+        let myRows = userActiveBookingsLogs.filter(b => b.booked_by === sessionMemberProfile.full_name);
+        if (myRows.length === 0) { container.innerHTML = `<p class="text-xs text-slate-500 text-center py-4">No matching records.</p>`; return; }
+        myRows.forEach(b => {
+            container.innerHTML += `
+              <div class="flex justify-between items-center bg-slate-950 p-3 rounded-xl border border-slate-900">
+                <div>
+                  <h4 class="font-bold text-slate-200 text-xs">${b.court_name}</h4>
+                  <p class="text-[10px] text-slate-400 font-mono mt-0.5">${b.date} | ${b.time_slot}</p>
+                </div>
+                <button onclick="executeSelfMemberCancellation('${b.booking_id}')" class="text-[9px] bg-red-950/40 text-red-400 border border-red-900/40 px-2.5 py-1 rounded font-black uppercase hover:bg-red-500 hover:text-slate-950 cursor-pointer transition-all">Cancel</button>
+              </div>`;
         });
+    }
+
+    function executeSelfMemberCancellation(bookingId) {
+        if(confirm("Cancel this court booking reservation row?")) {
+            fetch('/api/admin-force-cancel-booking', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ bookingId })
+            })
+            .then(r => r.json()).then(res => {
+                if(res.status === "success") { alert("✓ Booking successfully canceled!"); syncUserLogsAndMatrix(); }
+            });
+        }
     }
 
     function renderGlobalClubLogUI() {
         const container = document.getElementById('globalClubLogLedgerContainer'); if(!container) return;
-        container.innerHTML = ""; const nowIST = getNowLocalIST();
-        let activeGlobalMatches = userActiveBookingsLogs.map(b => { return { ...b, absoluteMatchTime: parseUIDateToAbsoluteObject(sanitizeUIDate(b.date), b.time_slot) }; }).filter(b => b.absoluteMatchTime > nowIST);
-        if (activeGlobalMatches.length === 0) { container.innerHTML = `<p class="text-xs text-slate-500 text-center py-6">No scheduled upcoming matches.</p>`; return; }
-        activeGlobalMatches.forEach(match => {
-            let isItemMine = match.booked_by === sessionMemberProfile.full_name;
-            container.innerHTML += `<div class="flex justify-between items-center bg-slate-950 p-3 rounded-xl border ${isItemMine ? 'border-red-500/40' : 'border-slate-900'}"><div class="flex items-center space-x-3"><div><h4 class="font-bold text-slate-200 text-xs">${match.court_name}</h4><p class="text-[10px] text-slate-400 font-mono">${match.time_slot} (${sanitizeUIDate(match.date)})</p></div></div><div class="text-right"><span class="text-xs font-bold text-cyan-400">${match.booked_by}</span></div></div>`;
+        container.innerHTML = "";
+        if (userActiveBookingsLogs.length === 0) { container.innerHTML = `<p class="text-xs text-slate-500 text-center py-6">No scheduled matches.</p>`; return; }
+        userActiveBookingsLogs.forEach(match => {
+            container.innerHTML += `<div class="flex justify-between items-center bg-slate-950 p-3 rounded-xl border border-slate-900"><div class="flex items-center space-x-3"><div><h4 class="font-bold text-slate-200 text-xs">${match.court_name}</h4><p class="text-[10px] text-slate-400 font-mono">${match.time_slot} (${match.date})</p></div></div><div class="text-right"><span class="text-xs font-bold text-cyan-400">${match.booked_by}</span></div></div>`;
         });
     }
 
