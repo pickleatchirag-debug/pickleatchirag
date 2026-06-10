@@ -13,11 +13,29 @@ app.use(cookieParser());
 
 app.use(express.static(__dirname));
 
-app.get('/api/health', (req, res) => {
-res.json({
-success: true,
-message: 'Render server running'
+app.get('/api/test-login', async (req, res) => {
+
+try {
+
+const response = await fetch(
+  APPS_SCRIPT_URL + '?action=health'
+);
+
+const text = await response.text();
+
+res.send(text);
+
+} catch (err) {
+
+console.error(err);
+
+res.status(500).json({
+  success: false,
+  error: err.toString()
 });
+
+}
+
 });
 
 app.get('/api/test-login', async (req, res) => {
