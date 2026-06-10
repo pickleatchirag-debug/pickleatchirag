@@ -10,7 +10,9 @@ const GOOGLE_SHEETS_API_URL = "https://script.google.com/macros/s/AKfycby_elXPrU
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+
+// 🎯 FIXED PATH: Directs the static engine to look directly into the root folder instead of /public
+app.use(express.static(__dirname));
 
 // Master Background Database Memory Cache Registries
 let masterCachedUsersRegistry = [];
@@ -54,7 +56,6 @@ app.get('/api/check-session', (req, res) => {
     }
 
     try {
-        // Decodes cookie signature parameters directly
         const decodedEmail = Buffer.from(sessionCookie, 'base64').toString('ascii').toLowerCase().trim();
         const userMatch = masterCachedUsersRegistry.find(u => u.google_email.toLowerCase().trim() === decodedEmail);
 
@@ -96,7 +97,6 @@ app.post('/api/login', (req, res) => {
         return res.status(401).json({ status: "error", message: "Invalid resident credentials or missing account token." });
     }
 
-    // Set secure base64 state cookie session keys
     const sessionCookieString = Buffer.from(cleanEmail).toString('base64');
     res.cookie('chirag_secure_token', sessionCookieString, {
         httpOnly: true,
@@ -146,7 +146,7 @@ app.post('/api/admin-post-action-dispatch', async (req, res) => {
         
         const data = await response.json();
         if (data.status === 'success') {
-            await syncDatabaseFromGoogleSheets(); // Force synchronization instant updates
+            await syncDatabaseFromGoogleSheets();
         }
         res.json(data);
     } catch (error) {
@@ -155,9 +155,9 @@ app.post('/api/admin-post-action-dispatch', async (req, res) => {
     }
 });
 
-// Serve frontend mapping layout routes cleanly
+// 🎯 FIXED PATH: Serves index.html directly from the root repository directory safely
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 app.listen(PORT, () => {
