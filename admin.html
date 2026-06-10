@@ -3,244 +3,248 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chirag Sports — Executive Control Command</title>
+  <title>Chirag Sports — Administrative Hub</title>
+  
+  <link rel="manifest" href="/manifest.json?v=6.0.0">
+  <meta name="theme-color" content="#020617">
   <script src="https://cdn.tailwindcss.com"></script>
+  
   <style>
-    body { background-color: #0b0f19; }
-    ::-webkit-scrollbar { width: 4px; height: 4px; }
-    ::-webkit-scrollbar-track { background: #0b0f19; }
-    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 9999px; }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #020617; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #ef4444; }
   </style>
 </head>
-<body class="text-slate-200 min-h-screen font-sans p-4 md:p-6 space-y-6 select-none">
+<body class="bg-slate-950 text-slate-100 min-h-screen font-sans p-4 md:p-6 space-y-6">
 
-  <div id="adminAuthGateOverlay" class="fixed inset-0 bg-[#0b0f19] z-[99999] flex items-center justify-center p-4">
-    <div class="bg-[#111625] p-6 rounded-2xl border border-slate-800/80 shadow-2xl max-w-sm w-full space-y-4">
-      <div class="text-center">
-        <span class="text-3xl">🎛️</span>
-        <h2 class="text-base font-black uppercase text-red-500 mt-2 tracking-wider">Executive Suite</h2>
-        <p class="text-xs text-slate-400 mt-0.5">Authorized Administrator Handshake</p>
-      </div>
-      <div class="space-y-3">
-        <input type="email" id="gateAdminEmail" value="rahulbabbar1976@gmail.com" class="w-full bg-[#070a12] border border-slate-800 rounded-xl p-3 text-xs text-slate-100 font-mono focus:outline-none focus:border-red-500">
-        <input type="password" id="gateAdminKey" placeholder="Spreadsheet Password Key" class="w-full bg-[#070a12] border border-slate-800 rounded-xl p-3 text-xs text-slate-100 focus:outline-none focus:border-red-500">
-        <button onclick="validateAdminGateHandshake()" class="w-full bg-gradient-to-r from-red-500 to-orange-500 text-slate-950 font-black py-3 rounded-xl text-xs uppercase tracking-widest hover:brightness-110 cursor-pointer">Verify Access Clearances</button>
-      </div>
-    </div>
-  </div>
-
-  <header class="bg-[#111625] border border-slate-800/60 p-5 rounded-2xl max-w-6xl mx-auto shadow-xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+  <header class="bg-slate-900 border border-slate-800 p-6 rounded-2xl max-w-5xl mx-auto shadow-xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
     <div class="flex items-center space-x-4">
-      <div class="bg-gradient-to-br from-red-500 to-amber-500 p-3 rounded-xl text-xl font-black text-slate-950 shadow-md">HQ</div>
+      <div class="bg-red-500/10 border border-red-500/30 p-3 rounded-xl text-2xl">⚙️</div>
       <div>
-        <h1 class="text-[10px] font-black tracking-[0.25em] uppercase text-red-400">System Overwatch</h1>
-        <h2 class="text-2xl font-black text-white tracking-tight mt-0.5">Chirag Sports Operations Console</h2>
+        <h1 class="text-[10px] font-black tracking-[0.25em] uppercase text-red-500">System Headquarters</h1>
+        <h2 class="text-2xl font-black text-white tracking-tight mt-0.5">Management Control Desk</h2>
       </div>
     </div>
-    <div class="text-right w-full sm:w-auto border-t sm:border-t-0 border-slate-800/40 pt-2 sm:pt-0">
-      <span class="text-[9px] uppercase font-black text-slate-500 block">Database Health</span>
-      <span class="text-xs font-mono font-bold text-emerald-400 flex items-center justify-end gap-1.5 mt-0.5"><span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Cloud Sync Secured</span>
+    
+    <div class="flex items-center space-x-3 bg-slate-950 border border-slate-800/80 px-4 py-2.5 rounded-xl text-xs">
+      <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+      <span class="font-mono font-bold text-slate-300">HQ Sync Pipeline Secure</span>
     </div>
   </header>
 
-  <main class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6">
-    <div class="space-y-6">
-      <div class="bg-[#111625] border border-slate-800/80 p-5 rounded-2xl shadow-xl space-y-3">
-        <h3 class="text-xs font-black tracking-wider uppercase text-slate-400 flex items-center gap-2">📢 Notice Broadcaster</h3>
-        <textarea id="txtAdminTickerBroadcastPayload" rows="2" placeholder="Type notification ticker text loop here..." class="w-full bg-[#070a12] border border-slate-800 rounded-xl p-3 text-xs text-slate-100 focus:outline-none focus:border-red-500 resize-none font-medium"></textarea>
-        <button onclick="executeGlobalTickerBroadcastUpdate()" class="w-full bg-red-500 text-slate-950 font-black py-2.5 rounded-xl text-xs uppercase tracking-widest hover:brightness-110 cursor-pointer">Broadcast Notice Message</button>
+  <main class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+    
+    <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl shadow-xl space-y-4 h-fit">
+      <div class="border-b border-slate-800 pb-2">
+        <h3 class="text-xs font-black tracking-wider uppercase text-slate-400">Token Management Engine</h3>
       </div>
-
-      <div class="bg-[#111625] border border-slate-800/80 p-5 rounded-2xl shadow-xl space-y-3">
-        <h3 class="text-xs font-black tracking-wider uppercase text-slate-400 flex items-center gap-2">🛡️ Pre-Approve Email Whitelist</h3>
-        <div class="space-y-2.5">
-          <input type="email" id="txtWhitelistEmail" placeholder="invite-resident@gmail.com" class="w-full bg-[#070a12] border border-slate-800 rounded-xl p-2.5 text-xs font-mono text-slate-100 focus:outline-none focus:border-amber-500">
-          <input type="text" id="txtWhitelistCode" placeholder="Assign Society Unit Code (e.g. 13103)" class="w-full bg-[#070a12] border border-slate-800 rounded-xl p-2.5 text-xs text-slate-100 focus:outline-none focus:border-amber-500">
-          <button onclick="executeAdminWhitelistInjection()" class="w-full bg-amber-500 text-slate-950 font-black py-2.5 rounded-xl text-xs uppercase tracking-widest hover:brightness-110 cursor-pointer">Commit Email Whitelist</button>
+      
+      <div class="space-y-3">
+        <div class="space-y-1">
+          <label class="text-[10px] font-black uppercase text-slate-400 block">Target Member Email</label>
+          <input type="email" id="adminTokenEmailField" placeholder="name@gmail.com" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs focus:outline-none focus:border-red-500 font-mono text-slate-100">
         </div>
-        <div class="pt-2 border-t border-slate-800/40 max-h-[120px] overflow-y-auto space-y-1.5" id="whitelistOutputLogs"></div>
-      </div>
-
-      <div class="bg-[#111625] border border-slate-800/80 p-5 rounded-2xl shadow-xl space-y-3">
-        <h3 class="text-xs font-black tracking-wider uppercase text-slate-400 flex items-center gap-2">💬 Send Member Message</h3>
-        <div class="space-y-2.5">
-          <input type="email" id="txtMsgTargetEmail" placeholder="target-player-email@gmail.com" class="w-full bg-[#070a12] border border-slate-800 rounded-xl p-2.5 text-xs font-mono text-slate-100 focus:outline-none focus:border-cyan-500">
-          <textarea id="txtMsgContentPayload" rows="2" placeholder="Type personal memo message details..." class="w-full bg-[#070a12] border border-slate-800 rounded-xl p-2.5 text-xs text-slate-100 focus:outline-none focus:border-cyan-500 resize-none font-medium"></textarea>
-          <button onclick="executeDirectMemberMessagingHandshake()" class="w-full bg-cyan-500 text-slate-950 font-black py-2.5 rounded-xl text-xs uppercase tracking-widest hover:brightness-110 cursor-pointer">Transmit Direct Message</button>
+        <div class="space-y-1">
+          <label class="text-[10px] font-black uppercase text-slate-400 block">Token Volume Modification</label>
+          <input type="number" id="adminTokenCountField" placeholder="e.g. 5 or -2" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs focus:outline-none focus:border-red-500 font-mono text-slate-100">
         </div>
-      </div>
-
-      <div class="bg-[#111625] border border-slate-800/80 p-5 rounded-2xl shadow-xl space-y-3">
-        <h3 class="text-xs font-black tracking-wider uppercase text-slate-400 flex items-center gap-2">⚙️ Appoint Secondary Admins</h3>
-        <div class="space-y-2.5">
-          <input type="text" id="txtNewAdminName" placeholder="Co-Manager Full Name" class="w-full bg-[#070a12] border border-slate-800 rounded-xl p-2.5 text-xs text-slate-100 focus:outline-none focus:border-red-500">
-          <input type="email" id="txtNewAdminEmail" placeholder="manager-login@gmail.com" class="w-full bg-[#070a12] border border-slate-800 rounded-xl p-2.5 text-xs font-mono text-slate-100 focus:outline-none focus:border-red-500">
-          <input type="password" id="txtNewAdminPass" placeholder="Assign Admin Portal Security Key" class="w-full bg-[#070a12] border border-slate-800 rounded-xl p-2.5 text-xs text-slate-100 focus:outline-none focus:border-red-500">
-          <button onclick="registerAdditionalAdminKey()" class="w-full border border-red-500/30 bg-red-500/10 text-red-400 font-black py-2.5 rounded-xl text-xs uppercase tracking-widest hover:bg-red-500 hover:text-slate-950 transition-all cursor-pointer">Append Admin Row</button>
-        </div>
+        <button onclick="executeAdminTokenAdjustmentHandshake()" class="w-full bg-red-500 text-slate-950 font-black py-3 rounded-xl text-xs uppercase tracking-widest hover:brightness-110 active:scale-[0.98] transition-all cursor-pointer">
+          Update Token Vault Pool
+        </button>
       </div>
     </div>
 
-    <div class="lg:col-span-2 space-y-6">
-      <div class="bg-[#111625] border border-slate-800/80 p-5 rounded-2xl shadow-xl space-y-3">
-        <div class="flex justify-between items-center border-b border-slate-800/60 pb-2">
-          <h3 class="text-xs font-black tracking-wider uppercase text-slate-300 flex items-center gap-2">👥 Verified Member Directory Accounts</h3>
-          <span id="lblTotalMembersCount" class="text-[10px] bg-[#070a12] border border-slate-900 px-2 py-0.5 rounded text-amber-400 font-mono font-bold">Profiles: 0</span>
+    <div class="md:col-span-2 space-y-6">
+      
+      <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl shadow-xl space-y-3">
+        <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+          <h3 class="text-xs font-black tracking-wider uppercase text-slate-300">Registered Club Members</h3>
+          <span id="lblAdminTotalUsersBadge" class="text-[10px] bg-slate-950 border border-slate-800 px-2 py-0.5 rounded-md font-mono font-bold text-amber-400">Count: 0</span>
         </div>
-        <div class="overflow-x-auto max-h-[240px]">
+        
+        <div class="overflow-x-auto max-h-[260px]">
           <table class="w-full text-left text-xs border-collapse">
             <thead>
               <tr class="border-b border-slate-800 text-[10px] uppercase text-slate-500 font-black tracking-wider">
-                <th class="pb-2">User ID</th>
-                <th class="pb-2">Full Profile Name</th>
-                <th class="pb-2">Google Email Connection</th>
-                <th class="pb-2 text-center">Unit Code</th>
-                <th class="pb-2 text-right">Tokens Bal</th>
+                <th class="pb-2">Full Name</th>
+                <th class="pb-2">Email Identity</th>
+                <th class="pb-2 text-center">Unit</th>
+                <th class="pb-2 text-right">Tokens Available</th>
               </tr>
             </thead>
-            <tbody id="tblUsersProfilesContainer" class="divide-y divide-slate-800/40 text-slate-300 font-medium"></tbody>
+            <tbody id="tblAdminUsersDataContainer" class="divide-y divide-slate-800/60 font-medium">
+              <tr>
+                <td colspan="4" class="py-4 text-center text-slate-500 font-mono">No data models mapped. Run gateway handshake syncing loops.</td>
+              </tr>
+            </tbody>
           </table>
         </div>
       </div>
 
-      <div class="bg-[#111625] border border-slate-800/80 p-5 rounded-2xl shadow-xl space-y-3">
-        <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-3 border-b border-slate-800/60 pb-2.5">
-          <h3 class="text-xs font-black tracking-wider uppercase text-slate-300 flex items-center gap-2">🏓 Live Club Booking Matrix</h3>
-          <div class="flex bg-[#070a12] border border-slate-900 p-1 rounded-xl text-[10px] font-black uppercase tracking-wider space-x-1">
-            <button id="btnTabUpcoming" onclick="toggleMatrixDisplayTab('upcoming')" class="bg-[#111625] text-cyan-400 px-3 py-1.5 rounded-lg font-bold border border-slate-800/80">Upcoming Bookings</button>
-            <button id="btnTabHistory" onclick="toggleMatrixDisplayTab('history')" class="text-slate-500 px-3 py-1.5 rounded-lg font-bold cursor-pointer">History Ledger Log</button>
-          </div>
+      <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl shadow-xl space-y-3">
+        <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+          <h3 class="text-xs font-black tracking-wider uppercase text-slate-300">Live Master Booking Matrix</h3>
+          <span id="lblAdminTotalBookingsBadge" class="text-[10px] bg-slate-950 border border-slate-800 px-2 py-0.5 rounded-md font-mono font-bold text-cyan-400">Active: 0</span>
         </div>
+        
         <div class="overflow-x-auto max-h-[300px]">
           <table class="w-full text-left text-xs border-collapse">
             <thead>
               <tr class="border-b border-slate-800 text-[10px] uppercase text-slate-500 font-black tracking-wider">
-                <th class="pb-2">Booking ID</th>
-                <th class="pb-2">Target Asset</th>
-                <th class="pb-2">Scheduled Time Frame</th>
-                <th class="pb-2">Player Account</th>
-                <th class="pb-2 text-right">Operational Overrides</th>
+                <th class="pb-2">Assigned Court</th>
+                <th class="pb-2">Reserved Time Frame</th>
+                <th class="pb-2">Scheduled Player</th>
+                <th class="pb-2 text-right">System Override</th>
               </tr>
             </thead>
-            <tbody id="tblMatrixBookingsContainer" class="divide-y divide-slate-800/40 text-slate-300 font-medium"></tbody>
+            <tbody id="tblAdminBookingsDataContainer" class="divide-y divide-slate-800/60 font-medium">
+              <tr>
+                <td colspan="4" class="py-4 text-center text-slate-500 font-mono">No operational booking records cached on memory buffers.</td>
+              </tr>
+            </tbody>
           </table>
         </div>
       </div>
+
     </div>
   </main>
 
+  <footer class="text-center text-[10px] text-slate-600 font-bold tracking-widest max-w-5xl mx-auto pt-4 border-t border-slate-900">
+    CHIRAG SPORTS HQ AUTOMATION SYSTEMS MODULE &bull; ACTIVE REFRESH INTERVAL LOOP TRIGGERED EVERY 4000MS
+  </footer>
+
   <script>
-    let masterCachedUsersRegistry = []; let masterCachedBookingsRegistry = []; let masterCachedWhitelists = []; let currentMatrixTabState = "upcoming";
-
-    function checkAdminSession() {
-        fetch('/api/admin-check-session')
-        .then(r => r.json()).then(res => {
-            if (res.status === "authorized") {
-                const overlay = document.getElementById('adminAuthGateOverlay');
-                if(overlay) overlay.remove();
-                processAdministrativeHandshakeSync(); setInterval(processAdministrativeHandshakeSync, 4000);
-            }
-        });
-    }
-    window.addEventListener('DOMContentLoaded', checkAdminSession);
-
-    function validateAdminGateHandshake() {
-        const email = document.getElementById('gateAdminEmail').value.toLowerCase().trim();
-        const password = document.getElementById('gateAdminKey').value.trim();
-        fetch('/api/admin-login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password }) })
-        .then(r => r.json()).then(res => {
-            if (res.status === "success") {
-                document.getElementById('adminAuthGateOverlay').remove();
-                processAdministrativeHandshakeSync(); setInterval(processAdministrativeHandshakeSync, 4000);
-            } else { alert(res.message); }
-        });
-    }
+    // System orchestration variables
+    let masterCachedUsersRegistry = [];
+    let masterCachedBookingsRegistry = [];
 
     function processAdministrativeHandshakeSync() {
       fetch('/api/admin-fetch-dashboard-snapshot', { method: 'POST' })
-        .then(r => r.json()).then(res => {
-          masterCachedUsersRegistry = res.users || []; masterCachedBookingsRegistry = res.bookings || []; masterCachedWhitelists = res.whitelisted || [];
-          renderUsersProfilesUI(); renderFilteredMatrixUI(); renderWhitelistLogsUI();
-        });
+        .then(r => r.json())
+        .then(res => {
+          masterCachedUsersRegistry = res.users || [];
+          masterCachedBookingsRegistry = res.bookings || [];
+          
+          renderUsersRegistryUI();
+          renderMasterBookingsUI();
+        })
+        .catch(err => console.log("✕ Administrative Synchronization Pipeline offline:", err));
     }
 
-    function renderUsersProfilesUI() {
-      const container = document.getElementById('tblUsersProfilesContainer');
-      document.getElementById('lblTotalMembersCount').innerText = `Profiles: ${masterCachedUsersRegistry.length}`;
+    function renderUsersRegistryUI() {
+      const container = document.getElementById('tblAdminUsersDataContainer');
+      const badge = document.getElementById('lblAdminTotalUsersBadge');
+      if(!container) return;
+      
+      badge.innerText = `Count: ${masterCachedUsersRegistry.length}`;
+      if(masterCachedUsersRegistry.length === 0) {
+        container.innerHTML = `<tr><td colspan="4" class="py-4 text-center text-slate-500 font-mono">No users found inside core records.</td></tr>`;
+        return;
+      }
+
       let html = "";
       masterCachedUsersRegistry.forEach(user => {
-        html += `<tr class="hover:bg-[#070a12]/40 transition-colors text-slate-200"><td class="py-2.5 font-mono text-slate-500 font-bold">${user.id}</td><td class="py-2.5 font-bold text-white">${user.full_name}</td><td class="py-2.5 font-mono text-slate-400 select-all">${user.google_email}</td><td class="py-2.5 text-center font-mono text-amber-500 font-black">${user.registration_code}</td><td class="py-2.5 text-right font-mono font-black text-emerald-400">${user.available_tokens}</td></tr>`;
+        html += `
+          <tr class="hover:bg-slate-950/40 text-slate-200">
+            <td class="py-3 font-bold text-white">${user.full_name || '—'}</td>
+            <td class="py-3 font-mono text-slate-400 select-all">${user.google_email}</td>
+            <td class="py-3 text-center font-mono text-amber-500 font-bold">${(user.registration_code || 'N/A').toUpperCase()}</td>
+            <td class="py-3 text-right font-mono font-black text-emerald-400 text-sm">${user.available_tokens ?? 0}</td>
+          </tr>`;
       });
-      container.innerHTML = html || '<tr><td colspan="5" class="py-4 text-center text-slate-600">No member profiles logged.</td></tr>';
+      container.innerHTML = html;
     }
 
-    function parseAdminDateTime(dateStr, timeSlotStr) {
-      try {
-        const [d, m, y] = dateStr.split('/'); const [startHourStr] = timeSlotStr.split(' - '); const [hour, minutes] = startHourStr.split(':');
-        return new Date(parseInt(y, 10), parseInt(m, 10) - 1, parseInt(d, 10), parseInt(hour, 10), parseInt(minutes || 0, 10), 0);
-      } catch(e) { return new Date(0); }
-    }
+    function renderMasterBookingsUI() {
+      const container = document.getElementById('tblAdminBookingsDataContainer');
+      const badge = document.getElementById('lblAdminTotalBookingsBadge');
+      if(!container) return;
 
-    function renderFilteredMatrixUI() {
-      const container = document.getElementById('tblMatrixBookingsContainer');
-      const nowIST = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" }));
-      let mappedBookings = masterCachedBookingsRegistry.map(b => { return { ...b, parsedTime: parseAdminDateTime(String(b.date).trim(), String(b.time_slot).trim()) }; });
-      let filtered = mappedBookings.filter(b => currentMatrixTabState === "upcoming" ? b.parsedTime > nowIST : b.parsedTime <= nowIST);
-      filtered.sort((a, b) => currentMatrixTabState === "upcoming" ? a.parsedTime - b.parsedTime : b.parsedTime - a.parsedTime);
+      badge.innerText = `Active: ${masterCachedBookingsRegistry.length}`;
+      if(masterCachedBookingsRegistry.length === 0) {
+        container.innerHTML = `<tr><td colspan="4" class="py-4 text-center text-slate-500 font-mono">No reservation parameters currently mapped to assets.</td></tr>`;
+        return;
+      }
 
       let html = "";
-      filtered.forEach(b => {
-        let displayCourt = b.court_name === "Pickleball Court" ? "Pickleball Court 1" : b.court_name;
-        html += `<tr class="hover:bg-[#070a12]/40 text-slate-200"><td class="py-2.5 font-mono text-[11px] text-slate-500 font-bold">${b.booking_id}</td><td class="py-2.5 font-bold text-cyan-400">${displayCourt}</td><td class="py-2.5 font-mono text-slate-400 text-xs">${b.date} <br/> <b>${b.time_slot}</b></td><td class="py-2.5 font-bold text-white">${b.booked_by}</td><td class="py-2.5 text-right"><button onclick="executeForceSystemRelease('${b.booking_id}')" class="text-[9px] bg-red-950/40 text-red-400 border border-red-900/40 px-2.5 py-1 rounded font-black uppercase hover:bg-red-500 hover:text-slate-950 transition-all cursor-pointer">Purge</button></td></tr>`;
+      masterCachedBookingsRegistry.forEach(booking => {
+        html += `
+          <tr class="hover:bg-slate-950/40 text-slate-200">
+            <td class="py-3 font-bold text-cyan-400">${booking.court_name}</td>
+            <td class="py-3 font-mono text-slate-400">${sanitizeUIDateFormat(booking.date)} | ${booking.time_slot}</td>
+            <td class="py-3 text-white font-black">${booking.booked_by}</td>
+            <td class="py-3 text-right">
+              <button onclick="executeForceSystemRelease('${booking.booking_id}')" class="text-[10px] bg-red-950/30 text-red-400 border border-red-900/40 px-2 py-1 rounded-md font-black uppercase tracking-wider hover:bg-red-500 hover:text-slate-950 transition-all cursor-pointer">
+                Revoke
+              </button>
+            </td>
+          </tr>`;
       });
-      container.innerHTML = html || `<tr><td colspan="5" class="py-6 text-center text-slate-600 font-mono">No matches found matching ${currentMatrixTabState} filter.</td></tr>`;
+      container.innerHTML = html;
     }
 
-    function toggleMatrixDisplayTab(tabTarget) {
-      currentMatrixTabState = tabTarget;
-      document.getElementById('btnTabUpcoming').className = tabTarget === 'upcoming' ? "bg-[#111625] text-cyan-400 px-3 py-1.5 rounded-lg font-bold border border-slate-800/80" : "text-slate-500 px-3 py-1.5 rounded-lg font-bold cursor-pointer";
-      document.getElementById('btnTabHistory').className = tabTarget === 'history' ? "bg-[#111625] text-cyan-400 px-3 py-1.5 rounded-lg font-bold border border-slate-800/80" : "text-slate-500 px-3 py-1.5 rounded-lg font-bold cursor-pointer";
-      renderFilteredMatrixUI();
-    }
+    function executeAdminTokenAdjustmentHandshake() {
+      const email = document.getElementById('adminTokenEmailField').value.trim();
+      const count = parseInt(document.getElementById('adminTokenCountField').value, 10);
 
-    function executeAdminWhitelistInjection() {
-      const email = document.getElementById('txtWhitelistEmail').value.trim(); const code = document.getElementById('txtWhitelistCode').value.trim();
-      if(!email || !code) return alert("Please fill inside both input boxes.");
-      fetch('/api/admin-add-whitelist', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({email, code}) })
-      .then(r=>r.json()).then(res => { if(res.status === "success") { alert(`✓ Authorized! Added ${email} to whitelist.`); document.getElementById('txtWhitelistEmail').value=""; document.getElementById('txtWhitelistCode').value=""; processAdministrativeHandshakeSync(); } });
-    }
+      if(!email || isNaN(count)) {
+        return alert("Please map a valid member email block and numeric token configuration payload.");
+      }
 
-    function renderWhitelistLogsUI() {
-      const log = document.getElementById('whitelistOutputLogs'); log.innerHTML = `<p class="text-[9px] font-black uppercase text-slate-500 tracking-wider">Active Whitelisted Invites:</p>`;
-      masterCachedWhitelists.forEach(w => { log.innerHTML += `<div class="flex justify-between items-center text-[10px] font-mono bg-[#070a12]/60 p-2 border border-slate-900 rounded-xl"><span class="text-slate-400 font-bold">${w.email}</span><span class="text-amber-400 font-black">Unit: ${w.code}</span></div>`; });
-    }
-
-    function executeDirectMemberMessagingHandshake() {
-      const email = document.getElementById('txtMsgTargetEmail').value.trim(); const message = document.getElementById('txtMsgContentPayload').value.trim();
-      if(!email || !message) return alert("Specify target email identifier and text content.");
-      fetch('/api/admin-send-member-message', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({email, message}) })
-      .then(r=>r.json()).then(res => { if(res.status === "success") { alert(`✓ Transmitted successfully!`); document.getElementById('txtMsgTargetEmail').value=""; document.getElementById('txtMsgContentPayload').value=""; } });
-    }
-
-    function registerAdditionalAdminKey() {
-        const fullName = document.getElementById('txtNewAdminName').value.trim(); const email = document.getElementById('txtNewAdminEmail').value.toLowerCase().trim(); const password = document.getElementById('txtNewAdminPass').value.trim();
-        if(!fullName || !email || !password) return alert("Fill in all parameters fields keys.");
-        fetch('/api/admin-add-new-manager', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ fullName, email, password }) })
-        .then(r => r.json()).then(res => { if(res.status === "success") { alert(`✓ Success Admin Appended!`); document.getElementById('txtNewAdminName').value = ""; document.getElementById('txtNewAdminEmail').value = ""; document.getElementById('txtNewAdminPass').value = ""; processAdministrativeHandshakeSync(); } });
+      fetch('/api/admin-adjust-user-tokens', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, adjustmentValue: count })
+      })
+      .then(r => r.json())
+      .then(res => {
+        if(res.status === "success") {
+          alert(`✓ Token ledger balance successfully modified for identity: ${email}`);
+          document.getElementById('adminTokenEmailField').value = "";
+          document.getElementById('adminTokenCountField').value = "";
+          processAdministrativeHandshakeSync();
+        } else {
+          alert(res.message || "Token allocation adjustments denied by validation filters.");
+        }
+      });
     }
 
     function executeForceSystemRelease(bookingId) {
-        if(confirm(`Execute force-cancel override for Booking ID: ${bookingId}?`)) {
-            fetch('/api/admin-force-cancel-booking', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ bookingId }) })
-            .then(r => r.json()).then(res => { if(res.status === "success") { alert("✓ Booking successfully canceled."); processAdministrativeHandshakeSync(); } });
-        }
+      if(confirm("Execute forced system administrative override cancellation? This deletes the booking slot completely.")) {
+        fetch('/api/admin-force-cancel-booking', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ bookingId })
+        })
+        .then(r => r.json())
+        .then(res => {
+          if(res.status === "success") {
+            alert("✓ Asset reservation entry completely erased from cluster state.");
+            processAdministrativeHandshakeSync();
+          } else {
+            alert(res.message || "Forced administrative cancellation pipeline blocked.");
+          }
+        });
+      }
     }
 
-    function executeGlobalTickerBroadcastUpdate() {
-      const message = document.getElementById('txtAdminTickerBroadcastPayload').value.trim(); if(!message) return alert("Enter ticker banner text values.");
-      fetch('/api/admin-update-ticker', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ tickerText: message }) })
-      .then(r => r.json()).then(res => { if(res.status === "success") { alert("✓ Notice ticker broadcast completed successfully!"); document.getElementById('txtAdminTickerBroadcastPayload').value = ""; } });
+    function sanitizeUIDateFormat(input) {
+      if(!input) return "";
+      let str = input.toString().trim();
+      if(str.includes('T')) {
+          let d = new Date(str);
+          if(!isNaN(d.getTime())) {
+              let localIST = new Date(d.toLocaleString("en-US", { timeZone: "Asia/Kolkata" }));
+              return `${String(localIST.getDate()).padStart(2,'0')}/${String(localIST.getMonth()+1).padStart(2,'0')}/${localIST.getFullYear()}`;
+          }
+      }
+      return str;
     }
+
+    // Initialize immediate looping cycles
+    processAdministrativeHandshakeSync();
+    setInterval(processAdministrativeHandshakeSync, 4000);
   </script>
 </body>
 </html>
