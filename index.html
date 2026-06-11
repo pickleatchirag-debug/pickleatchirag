@@ -4,177 +4,54 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>pickle@chirag</title>
-  
-  <link rel="manifest" href="/manifest.json?v=6.0.0">
-  <meta name="theme-color" content="#020617">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <link class="app-main-icon-src" rel="apple-touch-icon" href="/icon-192.png?v=6.0.0">
-
   <script src="https://cdn.tailwindcss.com"></script>
-  
   <style>
+    /* Add your existing CSS styles from the previous message here */
     ::-webkit-scrollbar { width: 6px; height: 6px; }
     ::-webkit-scrollbar-track { background: #020617; }
     ::-webkit-scrollbar-thumb { background: #334155; border-radius: 9999px; }
-    ::-webkit-scrollbar-thumb:hover { background: #ef4444; }
-
-    #appFirstBootSplashScreen {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: radial-gradient(circle at center, #083344 0%, #020617 80%);
-      z-index: 99999;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      transition: opacity 0.5s ease-out;
-    }
-
-    .splash-logo-main {
-      width: 240px;
-      height: 240px;
-      position: relative;
-      z-index: 2;
-      filter: drop-shadow(0 0 30px rgba(34,211,238,.25)) drop-shadow(0 0 60px rgba(34,211,238,.15));
-      animation: splashFloat 2.5s ease-in-out infinite;
-    }
-
-    .splash-logo-glow {
-      position: absolute;
-      width: 260px;
-      height: 260px;
-      border-radius: 9999px;
-      background: radial-gradient(circle, rgba(34,211,238,.35) 0%, rgba(34,211,238,.12) 40%, transparent 75%);
-      filter: blur(30px);
-    }
-
-    @keyframes splashFloat {
-      0%   { transform: translateY(0); }
-      50%  { transform: translateY(-6px); }
-      100% { transform: translateY(0); }
-    }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen font-sans select-none flex flex-col justify-between pb-6">
+<body class="bg-slate-950 text-slate-100 min-h-screen font-sans">
 
-  <div id="appFirstBootSplashScreen">
-    <div class="relative flex flex-col items-center">
-      <div class="splash-logo-glow"></div>
-      <img src="/icon-512.png?v=6.0.0" alt="Pickle At Chirag" class="splash-logo-main">
-    </div>
-  </div>
-
-  <div class="bg-slate-900 border-b border-slate-800 text-xs py-2 px-4 shadow-md">
-    <div class="max-w-xl mx-auto flex items-center space-x-2 overflow-hidden">
-      <span class="bg-red-500/10 text-red-400 border border-red-500/20 px-2 py-0.5 rounded font-black uppercase text-[9px] tracking-wider shrink-0 animate-pulse">Notice</span>
-      <marquee id="systemGlobalTicker" class="text-slate-300 font-medium">Welcome to the Portal Desk.</marquee>
-    </div>
-  </div>
-
-  <div id="pwaGlobalInstallBanner" class="hidden max-w-md w-full mx-auto px-4 mt-4 select-none">
-    <div class="bg-gradient-to-r from-cyan-950/40 to-slate-900 border border-cyan-500/30 rounded-2xl p-4 flex items-center justify-between shadow-xl">
-      <div class="flex items-center space-x-3">
-        <div class="text-xl bg-cyan-500/10 border border-cyan-500/20 p-2 rounded-xl text-center">📱</div>
-        <div>
-          <h4 class="text-xs font-black text-slate-100 uppercase tracking-wider">Install App Icon</h4>
-          <p id="pwaBannerInstructionText" class="text-[10px] text-slate-400 mt-0.5 font-medium">Install pickle@chirag for quick access to court reservations.</p>
-        </div>
-      </div>
-      <button id="pwaActionTriggerBtn" class="bg-cyan-500 text-slate-950 text-[10px] font-black px-4 py-2.5 rounded-xl uppercase tracking-widest hover:brightness-110 shadow-lg active:scale-[0.97] transition-all cursor-pointer">Install</button>
-    </div>
-  </div>
-
-  <main class="p-4 max-w-xl mx-auto w-full flex-1 flex flex-col justify-center">
-    
-    <div id="viewLoginPanel" class="bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-2xl max-w-md w-full mx-auto">
-      <div class="text-center space-y-1 mb-4">
-        <h2 class="text-xs font-black tracking-widest uppercase text-red-500">Welcome Back</h2>
-        <p class="text-xl font-black text-slate-100 tracking-tight">pickle@chirag</p>
-      </div>
-      
-      <form id="coreLoginFormHub" onsubmit="event.preventDefault(); executeMemberLoginHandshake();" class="space-y-4">
-        <div class="space-y-1">
-          <label class="text-[10px] font-black uppercase text-slate-400 tracking-wider block">Google Email Address</label>
-          <input type="email" id="loginEmailField" placeholder="name@gmail.com" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm focus:outline-none focus:border-red-500 text-slate-100 font-mono">
-        </div>
-        <div class="space-y-1">
-          <label class="text-[10px] font-black uppercase text-slate-400 tracking-wider block">Personal Password Key</label>
-          <input type="password" id="loginPasswordField" placeholder="••••••••" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm focus:outline-none focus:border-red-500 text-slate-100 tracking-widest">
-        </div>
-        <button type="submit" class="w-full bg-gradient-to-r from-red-500 to-amber-500 text-slate-950 font-black py-3.5 rounded-xl text-xs uppercase tracking-widest shadow-lg hover:brightness-110 active:scale-[0.99] transition-all">Sign Into Dashboard</button>
-        <div class="text-center mt-4">
-          <a href="#" onclick="alert('Please contact the club administrator for password assistance.'); return false;" class="text-[11px] text-slate-500 hover:text-cyan-400">Forgot Password?</a>
-        </div> 
-      </form>
-    </div>
-
-    <div id="viewWorkspacePanel" class="hidden space-y-6">
-      <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl flex justify-between items-center shadow-lg">
-         <div>
-            <h3 id="lblWorkspaceMemberName" class="text-sm font-black text-slate-100">--</h3>
-            <p id="lblWorkspaceMemberEmail" class="text-[10px] text-slate-400 font-mono mt-0.5">--</p>
-         </div>
-         <div class="text-right">
-            <span class="text-[9px] uppercase font-black text-slate-400 block">Available Tokens</span>
-            <span id="lblWorkspaceAvailableTokens" class="text-lg font-black text-amber-400 font-mono">0</span>
-         </div>
-      </div>
-
-      <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl shadow-lg space-y-3">
-         <div class="flex justify-between items-center overflow-x-auto gap-2 py-0.5" id="userCalendarStrip"></div>
-         <div class="grid grid-cols-3 gap-2 bg-slate-950 p-1 rounded-xl border border-slate-900 text-xs font-bold text-center">
-           <button id="userBtnC1" onclick="switchUserCourtAsset('Pickleball Court 1')" class="bg-slate-900 text-red-400 p-2 rounded-lg border border-slate-800 font-bold">PB 1</button>
-           <button id="userBtnC2" onclick="switchUserCourtAsset('Pickleball Court 2')" class="text-slate-500 p-2 rounded-lg font-bold">PB 2</button>
-           <button id="userBtnC3" onclick="switchUserCourtAsset('Badminton Court 1')" class="text-slate-500 p-2 rounded-lg font-bold">BD 1</button>
-         </div>
-      </div>
-
-      <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl shadow-lg space-y-3">
-         <div class="flex justify-between items-center border-b border-slate-800 pb-1.5">
-            <span class="text-xs font-black uppercase text-slate-400">Time Slot Matrix</span>
-            <span id="lblUserAssetHeadline" class="text-[10px] font-black uppercase text-red-400">Pickleball Court 1</span>
-         </div>
-         <div id="userTimeSlotMatrixGrid" class="grid grid-cols-2 gap-2.5 max-h-[260px] overflow-y-auto pr-1"></div>
-         <button onclick="commitSecureMemberBooking()" class="w-full bg-gradient-to-r from-red-500 to-amber-500 text-slate-950 font-black py-4 rounded-xl text-xs uppercase shadow-xl hover:brightness-110 active:scale-[0.99] transition-all">Lock Booking</button>
-      </div>
-
-      <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl shadow-lg space-y-4">
-        <div class="flex justify-between items-center border-b border-slate-800 pb-2">
-          <h2 class="text-xs font-black uppercase text-slate-300">Booking Ledger</h2>
-          <div class="flex space-x-3 text-[10px] font-black uppercase">
-            <button id="tabUserLogUpcoming" onclick="toggleUserLogTab('upcoming')" class="text-emerald-400 underline decoration-2 underline-offset-4">Upcoming</button>
-            <button id="tabUserLogPast" onclick="toggleUserLogTab('past')" class="text-slate-500">History</button>
-          </div>
-        </div>
-        <div id="userPersonalLedgerContainer" class="max-h-[240px] overflow-y-auto space-y-2.5 pr-1"></div>
-      </div>
-
-      <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl shadow-lg space-y-3">
-        <div class="border-b border-slate-800 pb-2 flex justify-between items-center">
-          <h2 class="text-xs font-black uppercase text-cyan-400">Upcoming Club Reservations</h2>
-          <span class="text-[9px] bg-slate-950 border border-slate-800 text-slate-400 px-2 py-0.5 rounded font-mono font-bold animate-pulse">Live</span>
-        </div>
-        <div id="viewGlobalClubTimeline" class="max-h-[260px] overflow-y-auto space-y-2 pr-1"></div>
-      </div>
-
-      <div class="text-center">
-         <button onclick="executeLogoutSequence()" class="text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-red-400 transition-all border border-slate-800/80 px-4 py-2 rounded-xl bg-slate-900/40">✕ Terminate Session Authorization</button>
-      </div>
-    </div>
+  <main class="p-4 max-w-xl mx-auto w-full">
+    <div id="viewLoginPanel">...</div>
+    <div id="viewWorkspacePanel" class="hidden">...</div>
   </main>
 
-  <footer class="text-center text-[10px] text-slate-600 font-medium tracking-wide">
-    pickle@chirag • Court Reservation System
-  </footer>
-
   <script>
-    const BACKEND_WEBAPP_URL = "https://script.google.com/macros/s/AKfycby_elXprUxfCPl1WYiPx2gc6TWpohNY-osHhfGgxeZBacn1vimm433n7sHUx2AvuVvHtg/exec";
-    const TIME_SLOTS = ["07:00-08:00", "08:00-09:00", "09:00-10:00", "10:00-11:00", "11:00-12:00", "12:00-13:00", "13:00-14:00", "14:00-15:00", "15:00-16:00", "16:00-17:00", "17:00-18:00", "18:00-19:00", "19:00-20:00", "20:00-21:00"];
+    const BACKEND_WEBAPP_URL = "/api/gateway"; // Using your Proxy Server
+    
+    // ... [Insert all your JS functions: executeMemberLoginHandshake, syncUserLogsAndMatrix, 
+    // renderUserMatrixGridUI, renderUserPersonalLedgerUI, renderGlobalClubTimelineUI, 
+    // commitSecureMemberBooking, etc. from the previous response] ...
 
-    let selectedUserAsset = "Pickleball Court 1", selectedUserDateStr = "", matrixAvailabilityRecords = [], personalLedgerBookings = [], sessionMemberProfile = null, secureUserSessionToken = "", selectedTentativeSlotMemory = "", activeUserLogTab = "upcoming", syncInterval = null;
-
-    // [All helper functions like evaluateStorageSessionSync, executeMemberLoginHandshake, etc., remain exactly as designed in previous step.]
+    // IMPORTANT: Ensure syncUserLogsAndMatrix calls both render functions
+    function syncUserLogsAndMatrix() {
+        if(!secureUserSessionToken) return;
+        fetch(BACKEND_WEBAPP_URL, {
+            method: 'POST',
+            body: JSON.stringify({ action: "getAvailability", sessionToken: secureUserSessionToken, date: selectedUserDateStr })
+        })
+        .then(r => r.json()).then(res => {
+            if(res.success) {
+                matrixAvailabilityRecords = res.availability || [];
+                renderUserMatrixGridUI();      // Updates the frozen slots
+                renderGlobalClubTimelineUI();  // Updates the global upcoming feed
+            }
+        });
+        
+        fetch(BACKEND_WEBAPP_URL, {
+            method: 'POST',
+            body: JSON.stringify({ action: "getMyBookings", sessionToken: secureUserSessionToken })
+        })
+        .then(r => r.json()).then(res => {
+            if(res.success) {
+                personalLedgerBookings = res.bookings || [];
+                renderUserPersonalLedgerUI();   // Updates the personal ledger
+            }
+        });
+    }
   </script>
 </body>
 </html>
