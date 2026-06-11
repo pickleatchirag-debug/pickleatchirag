@@ -6,26 +6,30 @@ const fetch = require('node-fetch');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// 🔗 PASTE YOUR BRAND NEW GOOGLE APPS SCRIPT WEB APP DEPLOYMENT URL HERE
+// 🔗 Your core operational execution deployment URL link
 const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby_elXprUxfCPl1WYiPx2gc6TWpohNY-osHhfGgxeZBacn1vimm433n7sHUx2AvuVvHtg/exec";
 
 app.use(cors());
+
+// CRITICAL EXTENSION — Support standard JSON as well as raw body string inputs seamlessly
 app.use(express.json());
+app.use(express.text({ type: '*/*' })); 
+
 app.use(express.static(path.join(__dirname)));
 
 /**
  * Universal Proxy Forwarder
- * Forwards requests cleanly to Google Apps Script from the server side, entirely eliminating browser CORS limits.
+ * Bypasses browser CORS policy restrictions cleanly via robust server-to-server text transfers.
  */
-async function forwardToAppsScriptProxy(payload, expressResponse) {
+async function forwardToAppsScriptProxy(rawPayloadString, expressResponse) {
   try {
     const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
       method: 'POST',
       headers: {
         "Content-Type": "text/plain"
       },
-      body: JSON.stringify(payload),
-      follow: 20 // Enforces macro execution redirection hops natively
+      body: rawPayloadString, // Forwards the raw string directly to prevent formatting drops
+      follow: 20 
     });
 
     const responseData = await response.json();
@@ -35,17 +39,20 @@ async function forwardToAppsScriptProxy(payload, expressResponse) {
     console.error("❌ Proxy pipeline breakdown: ", error);
     return expressResponse.status(502).json({
       success: false,
-      message: "Synchronization gateway timeout. Ensure your Apps Script macro is deployed as a New Version."
+      message: "Database synchronization gateway timeout."
     });
   }
 }
 
-// Route explicitly handling proxy targets matching index.html endpoints
+// Intercepts gate execution calls and normalizes string states cleanly
 app.post('/api/gateway', (req, res) => {
-  forwardToAppsScriptProxy(req.body, res);
+  // If express text parser already captured the string, use it; otherwise, stringify the JSON body object
+  const cleanPayloadString = typeof req.body === 'string' ? req.body : JSON.stringify(req.body);
+  
+  forwardToAppsScriptProxy(cleanPayloadString, res);
 });
 
-// Fallback to route standard client static templates
+// Fallback to route standard client interface frames
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
@@ -53,7 +60,7 @@ app.get('*', (req, res) => {
 app.listen(PORT, () => {
   console.log(`====================================================`);
   console.log(` 🚀 CHIRAG SPORTS PORTAL PROXY ACTIVE (CORS ELIMINATED)`);
-  console.log(` 🔗 Target URL: ${GOOGLE_APPS_SCRIPT_URL}`);
-  console.log(` 🌐 Internal Port Loop active on port: ${PORT}`);
+  console.log(` 🔗 Connected Hub Target: ${GOOGLE_APPS_SCRIPT_URL}`);
+  console.log(` 🌐 Internal Port Loop listening on: ${PORT}`);
   console.log(`====================================================`);
 });
