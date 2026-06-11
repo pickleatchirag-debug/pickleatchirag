@@ -6,7 +6,7 @@ const fetch = require('node-fetch');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// 🔗 PASTE YOUR LATEST GOOGLE APPS SCRIPT WEB APP DEPLOYMENT URL HERE
+// 🔗 PASTE YOUR BRAND NEW GOOGLE APPS SCRIPT WEB APP DEPLOYMENT URL HERE
 const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby_elXprUxfCPl1WYiPx2gc6TWpohNY-osHhfGgxeZBacn1vimm433n7sHUx2AvuVvHtg/exec";
 
 app.use(cors());
