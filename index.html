@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chirag Sports Portal — Member Desk</title>
+  <title>pickle@chirag</title>
   
   <link rel="manifest" href="/manifest.json?v=6.0.0">
   <meta name="theme-color" content="#020617">
@@ -31,6 +31,42 @@
       justify-content: center;
       transition: opacity 0.5s ease-out;
     }
+
+    .splash-logo-main {
+      width: 240px;
+      height: 240px;
+      position: relative;
+      z-index: 2;
+
+      filter:
+        drop-shadow(0 0 30px rgba(34,211,238,.25))
+        drop-shadow(0 0 60px rgba(34,211,238,.15));
+
+      animation: splashFloat 2.5s ease-in-out infinite;
+    }
+
+    .splash-logo-glow {
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      border-radius: 9999px;
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(34,211,238,.35) 0%,
+          rgba(34,211,238,.12) 40%,
+          transparent 75%
+        );
+
+      filter: blur(30px);
+    }
+
+    @keyframes splashFloat {
+      0%   { transform: translateY(0); }
+      50%  { transform: translateY(-6px); }
+      100% { transform: translateY(0); }
+    }
   </style>
 
   <script>
@@ -50,19 +86,22 @@
 
   <div id="appFirstBootSplashScreen">
     <div class="relative flex flex-col items-center">
-      <img src="/icon-512.png?v=6.0.0" alt="Pickle at Chirag Logo" class="w-36 h-36 rounded-[32px] shadow-2xl border-2 border-cyan-500/20">
-      <div class="mt-6 text-center">
-        <h1 class="text-[10px] font-black tracking-[0.3em] uppercase text-cyan-400">Pickle At</h1>
-        <h2 class="text-3xl font-black tracking-tight text-white uppercase mt-0.5 filter drop-shadow-md">Chirag</h2>
-        <div class="w-8 h-0.5 bg-cyan-400 mx-auto mt-3 rounded-full opacity-60"></div>
-      </div>
+
+      <div class="splash-logo-glow"></div>
+
+      <img
+        src="/icon-512.png?v=6.0.0"
+        alt="Pickle At Chirag"
+        class="splash-logo-main"
+      >
+
     </div>
   </div>
 
   <div class="bg-slate-900 border-b border-slate-800 text-xs py-2 px-4 shadow-md">
     <div class="max-w-xl mx-auto flex items-center space-x-2 overflow-hidden">
       <span class="bg-red-500/10 text-red-400 border border-red-500/20 px-2 py-0.5 rounded font-black uppercase text-[9px] tracking-wider shrink-0 animate-pulse">Notice</span>
-      <marquee id="systemGlobalTicker" class="text-slate-300 font-medium"></marquee>
+      <marquee id="systemGlobalTicker" class="text-slate-300 font-medium">Welcome to the Portal Desk.</marquee>
     </div>
   </div>
 
@@ -72,7 +111,7 @@
         <div class="text-xl bg-cyan-500/10 border border-cyan-500/20 p-2 rounded-xl text-center">📱</div>
         <div>
           <h4 class="text-xs font-black text-slate-100 uppercase tracking-wider">Install App Icon</h4>
-          <p id="pwaBannerInstructionText" class="text-[10px] text-slate-400 mt-0.5 font-medium">Add Pickle at Chirag right to your mobile workspace launcher screens.</p>
+          <p id="pwaBannerInstructionText" class="text-[10px] text-slate-400 mt-0.5 font-medium">Install pickle@chirag for quick access to court reservations.</p>
         </div>
       </div>
       <button id="pwaActionTriggerBtn" class="bg-cyan-500 text-slate-950 text-[10px] font-black px-4 py-2.5 rounded-xl uppercase tracking-widest hover:brightness-110 shadow-lg active:scale-[0.97] transition-all cursor-pointer">Install</button>
@@ -84,7 +123,7 @@
     <div id="viewLoginPanel" class="bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-2xl max-w-md w-full mx-auto">
       <div class="text-center space-y-1 mb-4">
         <h2 class="text-xs font-black tracking-widest uppercase text-red-500">Welcome Back</h2>
-        <p class="text-xl font-black text-slate-100 tracking-tight">Log Into Resident Portal</p>
+        <p class="text-xl font-black text-slate-100 tracking-tight">pickle@chirag</p>
       </div>
       
       <form id="coreLoginFormHub" onsubmit="event.preventDefault(); executeMemberLoginHandshake();" class="space-y-4">
@@ -100,69 +139,6 @@
           Sign Into Dashboard
         </button>
       </form>
-      
-      <div class="flex justify-between items-center pt-4 mt-4 border-t border-slate-800/60 text-xs">
-        <p class="text-slate-400">New player? <button onclick="toggleInterfaceView('register')" class="text-amber-400 font-bold hover:underline cursor-pointer">Register</button></p>
-        <button onclick="toggleInterfaceView('reset')" class="text-cyan-400 font-bold hover:underline cursor-pointer">Forgot Password?</button>
-      </div>
-    </div>
-
-    <div id="viewRegisterPanel" class="hidden bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-2xl space-y-4 max-w-md w-full mx-auto">
-      <div class="text-center space-y-1">
-        <h2 class="text-xs font-black tracking-widest uppercase text-amber-500">Create Member Password</h2>
-        <p class="text-xs text-slate-400">Initialize whitelisted profile credentials.</p>
-      </div>
-      <div class="space-y-3 pt-2">
-        <div class="space-y-1">
-          <label class="text-[10px] font-black uppercase text-slate-400 tracking-wider block">Whitelisted Email Address</label>
-          <input type="email" id="regEmailField" placeholder="rallyxy@gmail.com" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm focus:outline-none focus:border-amber-500 text-slate-100 placeholder-slate-600 font-mono">
-        </div>
-        <div class="space-y-1">
-          <label class="text-[10px] font-black uppercase text-slate-400 tracking-wider block">Your Full Name</label>
-          <input type="text" id="regNameField" placeholder="Your Name" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm focus:outline-none focus:border-amber-500 text-slate-100 placeholder-slate-600">
-        </div>
-        <div class="space-y-1">
-          <label class="text-[10px] font-black uppercase text-slate-400 tracking-wider block">Society Unit Code</label>
-          <input type="text" id="regCodeField" placeholder="c2" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm focus:outline-none focus:border-amber-500 text-slate-100 placeholder-slate-600 font-mono">
-        </div>
-        <div class="space-y-1">
-          <label class="text-[10px] font-black uppercase text-slate-400 tracking-wider block">Set Account Password</label>
-          <input type="password" id="regPasswordField" placeholder="••••••" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm focus:outline-none focus:border-amber-500 text-slate-100 placeholder-slate-700 tracking-widest">
-        </div>
-        <button onclick="executeMemberAccountRegistration()" class="w-full bg-amber-500 text-slate-950 font-black py-4 rounded-xl text-xs uppercase tracking-widest shadow-lg hover:brightness-110 active:scale-[0.99] transition-all cursor-pointer mt-2">
-          Complete Registration
-        </button>
-      </div>
-      <div class="text-center pt-2 border-t border-slate-800/60">
-        <p class="text-xs text-slate-400">Back to security gate? <button onclick="toggleInterfaceView('login')" class="text-red-400 font-bold hover:underline cursor-pointer">Log in here</button></p>
-      </div>
-    </div>
-
-    <div id="viewResetPanel" class="hidden bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-2xl space-y-4 max-w-md w-full mx-auto">
-      <div class="text-center space-y-1">
-        <h2 class="text-xs font-black tracking-widest uppercase text-cyan-400">Secure Password Reset</h2>
-        <p class="text-xs text-slate-400">Verify whitelisted registration code details.</p>
-      </div>
-      <div class="space-y-3 pt-2">
-        <div class="space-y-1">
-          <label class="text-[10px] font-black uppercase text-slate-400 tracking-wider block">Registered Email Address</label>
-          <input type="email" id="resetEmailField" placeholder="resident@gmail.com" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm focus:outline-none focus:border-cyan-400 text-slate-100 placeholder-slate-600 font-mono">
-        </div>
-        <div class="space-y-1">
-          <label class="text-[10px] font-black uppercase text-slate-400 tracking-wider block">Society Joining/Unit Code Key</label>
-          <input type="text" id="resetCodeField" placeholder="Enter whitelisted registration code" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm focus:outline-none focus:border-cyan-400 text-slate-100 placeholder-slate-600 font-mono">
-        </div>
-        <div class="space-y-1">
-          <label class="text-[10px] font-black uppercase text-slate-400 tracking-wider block">Generate New Password</label>
-          <input type="password" id="resetNewPasswordField" placeholder="••••••••" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm focus:outline-none focus:border-cyan-400 text-slate-100 placeholder-slate-700 tracking-widest">
-        </div>
-        <button onclick="executeSecurePasswordResetOverride()" class="w-full bg-cyan-500 text-slate-950 font-black py-3.5 rounded-xl text-xs uppercase tracking-widest shadow-lg hover:brightness-110 active:scale-[0.99] transition-all cursor-pointer mt-2">
-          Override & Save Password
-        </button>
-      </div>
-      <div class="text-center pt-2 border-t border-slate-800/60">
-        <p class="text-xs text-slate-400">Remembered keys? <button onclick="toggleInterfaceView('login')" class="text-red-400 font-bold hover:underline cursor-pointer">Return to Login</button></p>
-      </div>
     </div>
 
     <div id="viewWorkspacePanel" class="hidden space-y-6">
@@ -213,17 +189,6 @@
         <div id="userPersonalLedgerContainer" class="max-h-[240px] overflow-y-auto space-y-2.5 pr-1"></div>
       </div>
 
-      <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl shadow-lg space-y-4">
-        <div class="flex justify-between items-center border-b border-slate-800 pb-2">
-          <div class="flex items-center space-x-2">
-             <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
-             <h2 class="text-xs font-black tracking-wider uppercase text-cyan-400">Live Club Schedule Matrix</h2>
-          </div>
-          <span class="text-[9px] bg-cyan-950 text-cyan-400 border border-cyan-900/60 px-2 py-0.5 rounded font-black uppercase tracking-wider">All Courts</span>
-        </div>
-        <div id="globalClubLogLedgerContainer" class="max-h-[260px] overflow-y-auto space-y-2.5 pr-1 text-slate-100"></div>
-      </div>
-
       <div class="text-center">
          <button onclick="executeLogoutSequence()" class="text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-red-400 transition-all border border-slate-800/80 px-4 py-2 rounded-xl bg-slate-900/40">✕ Terminate Session Authorization</button>
       </div>
@@ -231,27 +196,30 @@
   </main>
 
   <footer class="text-center text-[10px] text-slate-600 font-medium tracking-wide">
-    Chirag Sports Portal Engine &bull; Cloud Database Sync Secured
+    pickle@chirag • Court Reservation System
   </footer>
 
   <script>
+    const BACKEND_WEBAPP_URL = "https://script.google.com/macros/s/AKfycby_elXprUxfCPl1WYiPx2gc6TWpohNY-osHhfGgxeZBacn1vimm433n7sHUx2AvuVvHtg/exec";
+
     const TIME_SLOTS = [
-      "07:00 - 08:00", "08:00 - 09:00", "09:00 - 10:00", "10:00 - 11:00", 
-      "11:00 - 12:00", "12:00 - 13:00", "13:00 - 14:00", "14:00 - 15:00", 
-      "15:00 - 16:00", "16:00 - 17:00", "17:00 - 18:00", "18:00 - 19:00", 
-      "19:00 - 20:00", "20:00 - 21:00"
+      "07:00-08:00", "08:00-09:00", "09:00-10:00", "10:00-11:00", 
+      "11:00-12:00", "12:00-13:00", "13:00-14:00", "14:00-15:00", 
+      "15:00-16:00", "16:00-17:00", "17:00-18:00", "18:00-19:00", 
+      "19:00-20:00", "20:00-21:00"
     ];
 
     let selectedUserAsset = "Pickleball Court 1";
-    let selectedUserDateStr = "";
-    let userActiveBookingsLogs = [];
+    let selectedUserDateStr = ""; 
+    let matrixAvailabilityRecords = [];
+    let personalLedgerBookings = [];
     let sessionMemberProfile = null;
     let secureUserSessionToken = "";
     let selectedTentativeSlotMemory = "";
     let activeUserLogTab = "upcoming";
     let deferredPromptInstance = null;
+    let syncInterval = null;
 
-    // ⚡ INSTANT TOP-LEVEL SESSION INITIALIZATION CHECK
     function evaluateStorageSessionSync() {
       const savedToken = localStorage.getItem('chirag_session_token');
       const savedProfile = localStorage.getItem('chirag_member_profile');
@@ -262,10 +230,8 @@
           sessionMemberProfile = JSON.parse(savedProfile);
           
           window.addEventListener('DOMContentLoaded', () => {
-            const nameField = document.getElementById('lblWorkspaceMemberName');
-            const emailField = document.getElementById('lblWorkspaceMemberEmail');
-            if (nameField) nameField.innerText = sessionMemberProfile.full_name;
-            if (emailField) emailField.innerText = sessionMemberProfile.google_email;
+            document.getElementById('lblWorkspaceMemberName').innerText = sessionMemberProfile.full_name;
+            document.getElementById('lblWorkspaceMemberEmail').innerText = sessionMemberProfile.email;
             
             toggleInterfaceView('workspace');
             initUserCalendarStrip();
@@ -301,9 +267,7 @@
     function toggleInterfaceView(targetView) {
         const panels = {
             'login': document.getElementById('viewLoginPanel'),
-            'register': document.getElementById('viewRegisterPanel'),
-            'workspace': document.getElementById('viewWorkspacePanel'),
-            'reset': document.getElementById('viewResetPanel')
+            'workspace': document.getElementById('viewWorkspacePanel')
         };
         const bannerEl = document.getElementById('pwaGlobalInstallBanner');
 
@@ -317,7 +281,6 @@
         const currentTarget = panels[targetView];
         if (currentTarget) {
             currentTarget.classList.remove('hidden');
-            // Form structures require 'block' flow to stay fluid and properly aligned
             currentTarget.style.display = 'block';
             
             if (targetView === 'workspace' && bannerEl) {
@@ -358,95 +321,17 @@
         }
     }
 
-    function getNowLocalIST() { return new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" })); }
-
-    function sanitizeUIDate(input) {
-        if(!input) return "";
-        let str = input.toString().trim();
-        if(str.includes('T')) {
-            let d = new Date(str);
-            if(!isNaN(d.getTime())) {
-                let localIST = new Date(d.toLocaleString("en-US", { timeZone: "Asia/Kolkata" }));
-                return `${String(localIST.getDate()).padStart(2,'0')}/${String(localIST.getMonth()+1).padStart(2,'0')}/${localIST.getFullYear()}`;
-            }
-        }
-        return str;
+    function getNowLocalIST() { 
+      return new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" })); 
     }
 
     function parseUIDateToAbsoluteObject(dateStr, timeSlotStr) {
         try {
-            const [d, m, y] = dateStr.split('/');
-            const [startHourStr] = timeSlotStr.split(' - ');
+            const [y, m, d] = dateStr.split('-');
+            const startHourStr = timeSlotStr.split('-')[0].trim();
             const [hour, minutes] = startHourStr.split(':');
             return new Date(parseInt(y, 10), parseInt(m, 10) - 1, parseInt(d, 10), parseInt(hour, 10), parseInt(minutes || 0, 10), 0);
         } catch(e) { return new Date(); }
-    }
-
-    function extractNormalizedAssetToken(name) {
-        if(!name) return "";
-        let str = name.toString().toLowerCase().trim();
-        let prefix = (str.includes("badminton") || str.includes("bd")) ? "bd" : "pb";
-        let numbers = str.replace(/[^0-9]/g, '');
-        return prefix + (numbers.length > 0 ? numbers.charAt(0) : "1");
-    }
-
-    if(document.getElementById('systemGlobalTicker')) {
-       document.getElementById('systemGlobalTicker').innerText = "Welcome to the Pickle at Chirag Portal! Use your secure password to manage your active booking.";
-    }
-
-    function executeSecurePasswordResetOverride() {
-        const email = document.getElementById('resetEmailField').value.trim();
-        const verificationCode = document.getElementById('resetCodeField').value.trim();
-        const newPassword = document.getElementById('resetNewPasswordField').value.trim();
-
-        if (!email || !verificationCode || !newPassword) {
-            return alert("Please map all fields cleanly before executing password resets.");
-        }
-
-        fetch('/api/reset-password', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, verificationCode, newPassword })
-        })
-        .then(r => r.json())
-        .then(res => {
-            if (res.status === "success" || res.result === "success") {
-                alert("✓ Password overridden successfully! Database synced clean.");
-                document.getElementById('resetEmailField').value = "";
-                document.getElementById('resetCodeField').value = "";
-                document.getElementById('resetNewPasswordField').value = "";
-                toggleInterfaceView('login');
-            } else {
-                alert(res.message || "Reset request denied by core gateway.");
-            }
-        })
-        .catch(() => alert("Database sync pause. Please retry link tracking."));
-    }
-
-    function executeMemberAccountRegistration() {
-        const email = document.getElementById('regEmailField').value.trim();
-        const fullName = document.getElementById('regNameField').value.trim();
-        const registrationCode = document.getElementById('regCodeField').value.trim();
-        const password = document.getElementById('regPasswordField').value.trim();
-
-        if (!email || !fullName || !registrationCode || !password) {
-            return alert("Please fill out all registration form fields.");
-        }
-
-        fetch('/api/register', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, fullName, registrationCode, password })
-        })
-        .then(r => r.json())
-        .then(res => {
-            if (res.status === "success" || res.result === "success") {
-                alert("✓ Account initialization successful! You can now log into your profile desk.");
-                toggleInterfaceView('login'); 
-            } else {
-                alert(res.message || "Registration failed.");
-            }
-        });
     }
 
     function executeMemberLoginHandshake() {
@@ -455,48 +340,81 @@
 
         if(!email || !password) return alert("Please specify login email and password keys.");
 
-        fetch('/api/login', {
+        fetch(BACKEND_WEBAPP_URL, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password })
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ action: "memberLogin", email: email, password: password })
         })
         .then(r => r.json()).then(res => {
-            if(res.status === "error") return alert(res.message);
+            if(res.success === false || res.success === "false") return alert(res.message || "Invalid credentials");
             
             secureUserSessionToken = res.token;
-            sessionMemberProfile = res.user;
+            sessionMemberProfile = {
+              full_name: res.full_name,
+              email: res.email
+            };
 
             localStorage.setItem('chirag_session_token', secureUserSessionToken);
             localStorage.setItem('chirag_member_profile', JSON.stringify(sessionMemberProfile));
 
             document.getElementById('lblWorkspaceMemberName').innerText = sessionMemberProfile.full_name;
-            document.getElementById('lblWorkspaceMemberEmail').innerText = sessionMemberProfile.google_email;
-            document.getElementById('lblWorkspaceAvailableTokens').innerText = res.activeTokens;
-            document.getElementById('systemGlobalTicker').innerText = res.ticker || "Welcome back to the portal loop.";
+            document.getElementById('lblWorkspaceMemberEmail').innerText = sessionMemberProfile.email;
+            document.getElementById('lblWorkspaceAvailableTokens').innerText = res.custom_tokens;
 
             toggleInterfaceView('workspace');
             initUserCalendarStrip();
             startPollingLiveWorkspaceLogs();
         })
-        .catch(() => alert("Authorization channel offline."));
+        .catch(() => alert("Authorization channel offline. Verify WebApp URL configurations."));
     }
 
     function startPollingLiveWorkspaceLogs() {
         syncUserLogsAndMatrix();
-        setInterval(syncUserLogsAndMatrix, 4000);
+        
+        if (syncInterval) {
+          clearInterval(syncInterval);
+        }
+
+        syncInterval = setInterval(syncUserLogsAndMatrix, 8000);
     }
 
     function syncUserLogsAndMatrix() {
-        if(!sessionMemberProfile) return;
-        fetch('/api/fetch-logs', { method:'POST' }).then(r=>r.json()).then(res => {
-            userActiveBookingsLogs = res.records || [];
-            renderUserMatrixGridUI();
-            renderUserPersonalLedgerUI();
-            renderGlobalClubLogUI();
-        });
+        if(!secureUserSessionToken) return;
+        
+        // 1. Fetch live time slot openings matching the calendar strip choice
+        fetch(BACKEND_WEBAPP_URL, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ action: "getAvailability", sessionToken: secureUserSessionToken, date: selectedUserDateStr })
+        })
+        .then(r => r.json()).then(res => {
+            if(res.success) {
+                matrixAvailabilityRecords = res.availability || [];
+                renderUserMatrixGridUI();
+            }
+        }).catch(e => console.log("Availability sync exception caught: ", e));
+
+        // 2. Fetch logged records associated with active token
+        fetch(BACKEND_WEBAPP_URL, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ action: "getMyBookings", sessionToken: secureUserSessionToken })
+        })
+        .then(r => r.json()).then(res => {
+            if(res.success) {
+                document.getElementById('lblWorkspaceAvailableTokens').innerText = res.member.tokens;
+                personalLedgerBookings = res.bookings || [];
+                renderUserPersonalLedgerUI();
+            }
+        }).catch(e => console.log("Ledger sync exception caught: ", e));
     }
 
-    // Initialize layout data models
     function initUserCalendarStrip() {
         const box = document.getElementById('userCalendarStrip'); if(!box) return;
         const days = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]; const nowIST = getNowLocalIST();
@@ -505,7 +423,9 @@
         let dates = [];
         for(let i=0; i<3; i++) {
            let d = new Date(nowIST.getTime()); d.setDate(nowIST.getDate() + i);
-           dates.push(`${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()}`);
+           let formatStr = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+           dates.push(formatStr);
+           
            if(i === 0 && !selectedUserDateStr) selectedUserDateStr = dates[0];
            
            let isSel = selectedUserDateStr === dates[i];
@@ -517,7 +437,12 @@
         }
     }
 
-    function switchUserDateAsset(dateStr) { selectedUserDateStr = dateStr; selectedTentativeSlotMemory = ""; initUserCalendarStrip(); syncUserLogsAndMatrix(); }
+    function switchUserDateAsset(dateStr) { 
+        selectedUserDateStr = dateStr; 
+        selectedTentativeSlotMemory = ""; 
+        initUserCalendarStrip(); 
+        syncUserLogsAndMatrix(); 
+    }
     
     function switchUserCourtAsset(courtName) {
         selectedUserAsset = courtName; selectedTentativeSlotMemory = "";
@@ -531,25 +456,29 @@
     function renderUserMatrixGridUI() {
         const grid = document.getElementById('userTimeSlotMatrixGrid'); if(!grid) return;
         const nowIST = getNowLocalIST();
-        const targetToken = extractNormalizedAssetToken(selectedUserAsset);
-        const activeFilteredLogs = userActiveBookingsLogs.filter(l => extractNormalizedAssetToken(l.court_name) === targetToken && sanitizeUIDate(l.date) === selectedUserDateStr);
+        
+        // Filter out records from sheet matrix matching the chosen day + court asset layout target
+        const activeFilteredLogs = matrixAvailabilityRecords.filter(l => l.court.trim() === selectedUserAsset.trim());
 
         let newHTML = "";
         TIME_SLOTS.forEach(slot => {
-            const rowMatch = activeFilteredLogs.find(l => l.time_slot.trim() === slot.trim());
+            const rowMatch = activeFilteredLogs.find(l => l.slot.trim() === slot.trim());
             const isPast = nowIST >= parseUIDateToAbsoluteObject(selectedUserDateStr, slot);
             
             let cardStyle = "bg-slate-950 border-slate-900 text-slate-300 hover:border-slate-800 cursor-pointer";
-            let stateLabel = "Available Slot"; let action = `onclick="selectTentativeUserSlot('${slot}')"`;
+            let stateLabel = "Available Slot"; 
+            let action = `onclick="selectTentativeUserSlot('${slot}')"`;
 
             if(isPast) {
                 cardStyle = "bg-slate-900/10 border-slate-950 text-slate-700 line-through cursor-not-allowed";
                 stateLabel = "Expired Slot"; action = "";
-            } else if(rowMatch) {
-                let isMine = rowMatch.booked_by === sessionMemberProfile.full_name;
-                cardStyle = isMine ? "bg-red-950/20 border-red-500 text-red-400 font-bold" : "bg-slate-900 border-slate-800 text-slate-500 cursor-not-allowed";
-                stateLabel = "Your Locked Session";
-                action = isMine ? `onclick="forceUserSelfRelease('${rowMatch.booking_id}')"` : "";
+            } else if(rowMatch && rowMatch.status === "BOOKED") {
+                // Check local user historical buffer to see if they own this structural row item
+                let myOwnMatch = personalLedgerBookings.find(b => b.court === selectedUserAsset && b.date === selectedUserDateStr && b.slot === slot && b.status === "ACTIVE");
+                
+                cardStyle = myOwnMatch ? "bg-red-950/20 border-red-500 text-red-400 font-bold" : "bg-slate-900 border-slate-800 text-slate-500 cursor-not-allowed";
+                stateLabel = myOwnMatch ? "Your Session" : "Unavailable";
+                action = myOwnMatch ? `onclick="forceUserSelfRelease('${myOwnMatch.bookingId}')"` : "";
             } else if(selectedTentativeSlotMemory === slot) {
                 cardStyle = "border-amber-400 bg-amber-950/10 text-amber-400 font-bold shadow-md";
                 stateLabel = "Selected Target Block";
@@ -566,16 +495,14 @@
         const container = document.getElementById('userPersonalLedgerContainer'); if(!container) return;
         container.innerHTML = ""; const nowIST = getNowLocalIST();
 
-        let myParsedLogs = userActiveBookingsLogs
-            .filter(b => b.booked_by === sessionMemberProfile.full_name)
-            .map(b => { return { ...b, parsedTime: parseUIDateToAbsoluteObject(sanitizeUIDate(b.date), b.time_slot) }; });
-
-        let targetedRows = myParsedLogs.filter(b => {
-            return activeUserLogTab === "upcoming" ? b.parsedTime > nowIST : b.parsedTime <= nowIST;
+        let myParsedLogs = personalLedgerBookings.map(b => { 
+           return { ...b, parsedTime: parseUIDateToAbsoluteObject(b.date, b.slot) }; 
         });
 
-        if (activeUserLogTab === "upcoming") { targetedRows.sort((a, b) => a.parsedTime - b.parsedTime); } 
-        else { targetedRows.sort((a, b) => b.parsedTime - a.parsedTime); }
+        let targetedRows = myParsedLogs.filter(b => {
+            if (b.status === "CANCELLED") return false;
+            return activeUserLogTab === "upcoming" ? b.parsedTime > nowIST && b.status === "ACTIVE" : b.parsedTime <= nowIST || b.status === "COMPLETED";
+        });
 
         if (targetedRows.length === 0) {
             container.innerHTML = `<p class="text-xs text-slate-500 text-center py-4">No records found matching this ledger view.</p>`;
@@ -583,55 +510,17 @@
         }
 
         targetedRows.forEach(b => {
-            let actionBtn = activeUserLogTab === "upcoming" 
-                ? `<button onclick="forceUserSelfRelease('${b.booking_id}')" class="text-[10px] bg-red-950/40 text-red-400 border border-red-900/40 px-2.5 py-1.5 rounded-lg font-black uppercase hover:bg-red-500 hover:text-slate-950 transition-all cursor-pointer">Cancel</button>` 
-                : `<span class="text-[9px] bg-slate-950 text-slate-500 border border-slate-900 px-2 py-1 rounded font-black uppercase tracking-wide">Archived</span>`;
+            let actionBtn = (activeUserLogTab === "upcoming" && b.status === "ACTIVE") 
+                ? `<button onclick="forceUserSelfRelease('${b.bookingId}')" class="text-[10px] bg-red-950/40 text-red-400 border border-red-900/40 px-2.5 py-1.5 rounded-lg font-black uppercase hover:bg-red-500 hover:text-slate-950 transition-all cursor-pointer">Cancel</button>` 
+                : `<span class="text-[9px] bg-slate-950 text-slate-500 border border-slate-900 px-2 py-1 rounded font-black uppercase tracking-wide">${b.status}</span>`;
 
             container.innerHTML += `
               <div class="flex justify-between items-center bg-slate-950 p-3 rounded-xl border border-slate-900">
                 <div>
-                  <h4 class="font-bold text-slate-200 text-xs">${b.court_name}</h4>
-                  <p class="text-[10px] text-slate-400 font-mono mt-0.5">${sanitizeUIDate(b.date)} | ${b.time_slot}</p>
+                  <h4 class="font-bold text-slate-200 text-xs">${b.court}</h4>
+                  <p class="text-[10px] text-slate-400 font-mono mt-0.5">${b.date} | ${b.slot}</p>
                 </div>
                 ${actionBtn}
-              </div>`;
-        });
-    }
-
-    function renderGlobalClubLogUI() {
-        const container = document.getElementById('globalClubLogLedgerContainer'); if(!container) return;
-        container.innerHTML = "";
-        const nowIST = getNowLocalIST();
-
-        let activeGlobalMatches = userActiveBookingsLogs.map(b => {
-            return { ...b, absoluteMatchTime: parseUIDateToAbsoluteObject(sanitizeUIDate(b.date), b.time_slot) };
-        })
-        .filter(b => b.absoluteMatchTime > nowIST);
-
-        activeGlobalMatches.sort((a, b) => a.absoluteMatchTime - b.absoluteMatchTime);
-
-        if (activeGlobalMatches.length === 0) {
-            container.innerHTML = `<p class="text-xs text-slate-500 text-center py-6">No scheduled club matches booked on any court for the upcoming days.</p>`;
-            return;
-        }
-
-        activeGlobalMatches.forEach(match => {
-            let isItemMine = match.booked_by === sessionMemberProfile.full_name;
-            let iconMarker = match.court_name.includes('Badminton') ? "🏸" : "🏓";
-            
-            container.innerHTML += `
-              <div class="flex justify-between items-center bg-slate-950 p-3 rounded-xl border ${isItemMine ? 'border-red-500/40 bg-red-950/5' : 'border-slate-900'}">
-                <div class="flex items-center space-x-3">
-                  <div class="text-lg">${iconMarker}</div>
-                  <div>
-                    <h4 class="font-bold text-slate-200 text-xs">${match.court_name} <span class="text-[10px] text-slate-500 font-mono font-medium ml-1">(${sanitizeUIDate(match.date)})</span></h4>
-                    <p class="text-[10px] text-slate-400 font-mono mt-0.5">${match.time_slot}</p>
-                  </div>
-                </div>
-                <div class="text-right">
-                  <span class="text-[9px] uppercase tracking-wider text-slate-500 font-black block">Player</span>
-                  <span class="text-xs font-bold ${isItemMine ? 'text-red-400' : 'text-cyan-400'}">${match.booked_by}</span>
-                </div>
               </div>`;
         });
     }
@@ -645,10 +534,12 @@
 
     function forceUserSelfRelease(bookingId) {
         if (confirm("Are you sure you want to cancel this slot? Your token will be instantly refunded to your balance pool.")) {
-            fetch('/api/release-booking', {
+            fetch(BACKEND_WEBAPP_URL, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ bookingId, sessionToken: secureUserSessionToken })
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ action: "cancelBooking", bookingId: bookingId, sessionToken: secureUserSessionToken })
             })
             .then(r => r.json()).then(res => {
                 if(res.status === "success") {
@@ -664,10 +555,13 @@
     function commitSecureMemberBooking() {
         if(!selectedTentativeSlotMemory) return alert("Please tap an open schedule cell card to construct a booking target.");
         
-        fetch('/api/secure-booking', {
+        fetch(BACKEND_WEBAPP_URL, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                "Content-Type": "application/json"
+            },
             body: JSON.stringify({
+                action: "secureBooking",
                 courtName: selectedUserAsset,
                 sportType: selectedUserAsset.includes('Pickleball') ? 'PICKLEBALL' : 'BADMINTON',
                 userName: sessionMemberProfile.full_name,
@@ -682,13 +576,18 @@
                 selectedTentativeSlotMemory = "";
                 syncUserLogsAndMatrix();
             } else {
-                alert(res.message);
+                alert(res.message || "An issue occurred processing this transaction entry.");
             }
         });
     }
 
     function executeLogoutSequence() {
         if(confirm("Confirm logging out of active workspace context?")) {
+            if (syncInterval) {
+                clearInterval(syncInterval);
+                syncInterval = null;
+            }
+
             localStorage.removeItem('chirag_session_token');
             localStorage.removeItem('chirag_member_profile');
 
