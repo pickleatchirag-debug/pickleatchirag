@@ -7,11 +7,8 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(__dirname));
 
-// Replace this with your deployed Google Web App Executable Link URL
-const GOOGLE_SCRIPT_URL = "// 📄 server.js (Lines 8-11)
-
-// Replace this with your deployed Google Web App Executable Link URL
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby_elXprUxfCPl1WYiPx2gc6TWpohNY-osHhfGgxeZBacn1vimm433n7sHUx2AvuVvHtg/exec";";
+// Deployed Google Web App Executable Link URL
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby_elXprUxfCPl1WYiPx2gc6TWpohNY-osHhfGgxeZBacn1vimm433n7sHUx2AvuVvHtg/exec";
 
 // Local structural session token memory cache array
 let REGISTERED_USERS = [];
