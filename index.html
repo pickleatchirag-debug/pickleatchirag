@@ -181,16 +181,16 @@
       <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl shadow-lg space-y-3">
          <div class="flex justify-between items-center overflow-x-auto gap-2 py-0.5" id="userCalendarStrip"></div>
          <div class="grid grid-cols-3 gap-2 bg-slate-950 p-1 rounded-xl border border-slate-900 text-xs font-bold text-center">
-           <button id="userBtnC1" onclick="switchUserCourtAsset('Pickleball Court 1')" class="bg-slate-900 text-red-400 p-2 rounded-lg border border-slate-800 font-bold">PB Court 1</button>
-           <button id="userBtnC2" onclick="switchUserCourtAsset('Pickleball Court 2')" class="text-slate-500 p-2 rounded-lg font-bold">PB Court 2</button>
-           <button id="userBtnC3" onclick="switchUserCourtAsset('Badminton Court 1')" class="text-slate-500 p-2 rounded-lg font-bold">BD Court 1</button>
+           <button id="userBtnC1" onclick="switchUserCourtAsset('PB Court 1')" class="bg-slate-900 text-red-400 p-2 rounded-lg border border-slate-800 font-bold">PB Court 1</button>
+           <button id="userBtnC2" onclick="switchUserCourtAsset('PB Court 2')" class="text-slate-500 p-2 rounded-lg font-bold">PB Court 2</button>
+           <button id="userBtnC3" onclick="switchUserCourtAsset('BD Court 1')" class="text-slate-500 p-2 rounded-lg font-bold">BD Court 1</button>
          </div>
       </div>
 
       <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl shadow-lg space-y-3">
          <div class="flex justify-between items-center border-b border-slate-800 pb-1.5">
             <span class="text-xs font-black uppercase text-slate-400">Select Booking Time Frame</span>
-            <span id="lblUserAssetHeadline" class="text-[10px] font-black uppercase text-red-400 tracking-wider">Pickleball Court 1</span>
+            <span id="lblUserAssetHeadline" class="text-[10px] font-black uppercase text-red-400 tracking-wider">PB Court 1</span>
          </div>
          <div id="userTimeSlotMatrixGrid" class="grid grid-cols-2 gap-2.5 max-h-[260px] overflow-y-auto pr-1"></div>
          <div class="pt-2">
@@ -239,7 +239,7 @@
       "15:00 - 16:00", "16:00 - 17:00", "17:00 - 18:00", "18:00 - 19:00", 
       "19:00 - 20:00", "20:00 - 21:00"
     ];
-    let selectedUserAsset = "Pickleball Court 1", selectedUserDateStr = "", userActiveBookingsLogs = [], sessionMemberProfile = null;
+    let selectedUserAsset = "PB Court 1", selectedUserDateStr = "", userActiveBookingsLogs = [], sessionMemberProfile = null;
     let selectedTentativeSlotMemory = "", activeUserLogTab = "upcoming", secureUserSessionToken = "";
     let deferredPromptInstance = null;
 
@@ -287,28 +287,32 @@
 
     function getNowLocalIST() { return new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" })); }
 
-    // 🎯 RE-BUILT UNIFIED STRIP MATCHING AND CLEANING SCHEME
-    function cleanTargetStringDate(dateIn) {
-        if (!dateIn) return "";
-        let str = dateIn.toString().trim().split(' ')[0].split('T')[0];
-        // Standardize delimiters to dashes for baseline logic checks
-        str = str.replace(/\//g, '-');
+    // 🎯 STRIP AWAY ALL LEADING ZERO-PADDING DISCREPANCIES (Locks 12/06 vs 12/6 checks securely)
+    function sanitizeUIDate(input) {
+        if(!input) return "";
+        let str = input.toString().trim().split(' ')[0].split('T')[0];
+        str = str.replace(/-/g, '/');
         
-        let components = str.split('-');
-        if (components.length === 3) {
-            // Checks if string layout starts with a four-digit year pattern (yyyy-mm-dd)
-            if (components[0].length === 4) {
-                return `${String(components[2]).padStart(2,'0')}-${String(components[1]).padStart(2,'0')}-${components[0]}`;
+        let parts = str.split('/');
+        if (parts.length === 3) {
+            let day = parseInt(parts[0], 10);
+            let month = parseInt(parts[1], 10);
+            let year = parts[2];
+            
+            if (parts[0].length === 4) {
+                year = parts[0];
+                month = parseInt(parts[1], 10);
+                day = parseInt(parts[2], 10);
             }
-            return `${String(components[0]).padStart(2,'0')}-${String(components[1]).padStart(2,'0')}-${components[2]}`;
+            return `${day}/${month}/${year}`;
         }
         return str;
     }
 
     function parseUIDateToAbsoluteObject(dateStr, timeSlotStr) {
         try {
-            const normalized = cleanTargetStringDate(dateStr);
-            const [d, m, y] = normalized.split('-');
+            const cleanDate = sanitizeUIDate(dateStr);
+            const [d, m, y] = cleanDate.split('/');
             const [startHourStr] = timeSlotStr.split(' - ');
             const [hour, minutes] = startHourStr.split(':');
             return new Date(parseInt(y, 10), parseInt(m, 10) - 1, parseInt(d, 10), parseInt(hour, 10), parseInt(minutes || 0, 10), 0);
@@ -330,6 +334,7 @@
         if(targetView === 'reset') document.getElementById('viewResetPanel').classList.remove('hidden');
     }
 
+    // 🎯 RE-MAPPED TOKENIZER FOR EXTRINSIC COURT ALIGNMENTS
     function extractNormalizedAssetToken(name) {
         if(!name) return "";
         let str = name.toString().toLowerCase().trim();
@@ -449,7 +454,7 @@
            dates.push(`${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()}`);
            if(i === 0 && !selectedUserDateStr) selectedUserDateStr = dates[0];
            
-           let isSel = cleanTargetStringDate(selectedUserDateStr) === cleanTargetStringDate(dates[i]);
+           let isSel = sanitizeUIDate(selectedUserDateStr) === sanitizeUIDate(dates[i]);
            box.innerHTML += `
              <div onclick="switchUserDateAsset('${dates[i]}')" class="border text-center flex-1 p-2 rounded-xl cursor-pointer transition-all ${isSel?'border-red-500 bg-red-950/20 text-red-400 font-bold':'border-slate-800 bg-slate-900 text-slate-400'}">
                 <p class="text-[9px] uppercase font-black">${days[d.getDay()]}</p>
@@ -464,20 +469,21 @@
         selectedUserAsset = courtName; selectedTentativeSlotMemory = "";
         document.getElementById('lblUserAssetHeadline').innerText = courtName;
         ['userBtnC1','userBtnC2','userBtnC3'].forEach(id => document.getElementById(id).className="text-slate-500 p-2 rounded-lg font-bold");
-        const activeId = courtName.includes('1') ? (courtName.includes('Pickleball')?'userBtnC1':'userBtnC3') : 'userBtnC2';
+        const activeId = courtName.includes('1') ? (courtName.includes('PB')?'userBtnC1':'userBtnC3') : 'userBtnC2';
         document.getElementById(activeId).className="bg-slate-950 text-red-400 p-2 rounded-lg border border-slate-800 font-bold";
         syncUserLogsAndMatrix();
     }
 
+    // 🔒 THE ABSOLUTE STATE ENFORCEMENT ENGINE
     function renderUserMatrixGridUI() {
         const grid = document.getElementById('userTimeSlotMatrixGrid'); if(!grid) return;
         const nowIST = getNowLocalIST();
         const targetToken = extractNormalizedAssetToken(selectedUserAsset);
         
-        const standardizedDateMarker = cleanTargetStringDate(selectedUserDateStr);
+        const sanitizedSelectedDate = sanitizeUIDate(selectedUserDateStr);
         const activeFilteredLogs = userActiveBookingsLogs.filter(l => 
             extractNormalizedAssetToken(l.court_name) === targetToken && 
-            cleanTargetStringDate(l.date) === standardizedDateMarker
+            sanitizeUIDate(l.date) === sanitizedSelectedDate
         );
 
         let newHTML = "";
@@ -498,7 +504,7 @@
                     stateLabel = "Your Locked Session";
                     action = `onclick="forceUserSelfRelease('${rowMatch.booking_id}')"`;
                 } else {
-                    // 🔒 HARD LOCK ACTIVATED: Other members' cells display unclickable "Booked" state labels
+                    // 🔒 HARD BOUNDARY LOCK: Strictly forces other users' booked slots to freeze as an immutable "Booked" item.
                     cardStyle = "bg-slate-900 border-slate-950 text-slate-600 cursor-not-allowed opacity-40";
                     stateLabel = "Booked";
                     action = "";
@@ -544,7 +550,7 @@
               <div class="flex justify-between items-center bg-slate-950 p-3 rounded-xl border border-slate-900">
                 <div>
                   <h4 class="font-bold text-slate-200 text-xs">${b.court_name}</h4>
-                  <p class="text-[10px] text-slate-400 font-mono mt-0.5">${cleanTargetStringDate(b.date)} | ${b.time_slot}</p>
+                  <p class="text-[10px] text-slate-400 font-mono mt-0.5">${sanitizeUIDate(b.date)} | ${b.time_slot}</p>
                 </div>
                 ${actionBtn}
               </div>`;
@@ -577,7 +583,7 @@
                 <div class="flex items-center space-x-3">
                   <div class="text-lg">${iconMarker}</div>
                   <div>
-                    <h4 class="font-bold text-slate-200 text-xs">${match.court_name} <span class="text-[10px] text-slate-500 font-mono font-medium ml-1">(${cleanTargetStringDate(match.date)})</span></h4>
+                    <h4 class="font-bold text-slate-200 text-xs">${match.court_name} <span class="text-[10px] text-slate-500 font-mono font-medium ml-1">(${sanitizeUIDate(match.date)})</span></h4>
                     <p class="text-[10px] text-slate-400 font-mono mt-0.5">${match.time_slot}</p>
                   </div>
                 </div>
@@ -622,7 +628,7 @@
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 courtName: selectedUserAsset,
-                sportType: selectedUserAsset.includes('Pickleball') ? 'PICKLEBALL' : 'BADMINTON',
+                sportType: selectedUserAsset.includes('PB') ? 'PICKLEBALL' : 'BADMINTON',
                 userName: sessionMemberProfile.full_name,
                 date: selectedUserDateStr,
                 timeSlot: selectedTentativeSlotMemory,
