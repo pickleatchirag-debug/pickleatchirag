@@ -77,8 +77,7 @@ app.post('/api/fetch-logs', (req, res) => {
   res.json({ records: BOOKING_RECORDS });
 });
 
-// 🔒 FIXED COLUMN MAPPING EXECUTOR ROUTE
-// 🔒 SEAMLESS COLUMN MAPPING EXECUTOR ROUTE
+// 🔒 CLEAN INTEGRATED TRANSACTION PASS-THROUGH
 app.post('/api/secure-booking', async (req, res) => {
   const { courtName, sportType, userName, date, timeSlot } = req.body;
   try {
@@ -95,30 +94,6 @@ app.post('/api/secure-booking', async (req, res) => {
         userName: userName,
         date: date,
         timeSlot: timeSlot
-      })
-    });
-    
-    let data = await response.json();
-    syncDatabaseMemoryPool();
-    res.json(data);
-  } catch (err) {
-    res.status(500).json({ status: "error", message: "Operational pipeline timeout. Direct row entry dropped." });
-  }
-});
-    // 🎯 PERFECT ALIGNMENT: Matches columns A, B, C, D, E, F, G, H exactly to your sheet blueprint!
-    let response = await fetch(GOOGLE_SCRIPT_URL, { 
-      method: "POST", 
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        action: "secureBooking",
-        bookingId: bookingId,      // Column A (booking_id)
-        courtName: courtName,      // Column B (court_name)
-        sportType: sportType,      // Column C (sport_type)
-        userName: userName,        // Column D (booked_by)
-        email: "",                 // Column E (player_email) -> Left empty cleanly
-        unit: "",                  // Column F (player_unit)  -> Left empty cleanly
-        date: date,                // Column G (date)         -> Lands perfectly now!
-        timeSlot: timeSlot         // Column H (time_slot)    -> Lands perfectly now!
       })
     });
     
